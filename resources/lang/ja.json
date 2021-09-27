@@ -130,7 +130,7 @@
     "Costa Rica": "Costa Rica",
     "Cote D'Ivoire": "Côte d'Ivoire",
     "could not be found.": "could not be found.",
-    "Create": "作成",
+    "Create": "保存",
     "Create & Add Another": "Create & Add Another",
     "Create :resource": "Create :resource",
     "Create a new team to collaborate with others on projects.": "プロジェクトで協力するために新しいチームを作成する。",
@@ -569,7 +569,7 @@
     "United Kingdom": "United Kingdom",
     "United States": "United States",
     "United States Outlying Islands": "U.S. Outlying Islands",
-    "Update": "Update",
+    "Update": "更新",
     "Update & Continue Editing": "Update & Continue Editing",
     "Update :resource": "Update :resource",
     "Update :resource: :title": "Update :resource: :title",
@@ -617,5 +617,7 @@
     "Zimbabwe": "Zimbabwe",
 
     "Project Name": "プロジェクト名",
-    "Project Create": "プロジェクト作成"
+    "Project Create": "プロジェクト作成",
+    "Project created successfully.": "プロジェクトの作成に成功しました。",
+    "Project updated successfully.": "プロジェクトの更新に成功しました。"
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -14,7 +15,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $projects = Project::all();
+
+        return view('projects.index', compact('projects'));
     }
 
     /**
@@ -70,9 +73,9 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Project $project)
     {
-        //
+        return view('projects.edit', compact('project'));
     }
 
     /**
@@ -82,9 +85,23 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Project $project)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+
+
+        if ($project = $project->update($request->all())) {
+            $flash = ['success' => __('Project updated successfully.')];
+        } else {
+            $flash = ['error' => __('Failed to update the project.')];
+        }
+
+        return redirect()
+            ->route('projects.index', $project)
+            ->with($flash);
     }
 
     /**
