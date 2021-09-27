@@ -10,4 +10,14 @@ class Project extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    /**
+     * マスアサインメントが可能な属性
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'user_id',
+    ];
 }

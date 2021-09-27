@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -23,7 +24,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('projects.create');
     }
 
     /**
@@ -34,9 +35,24 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'project_name' => 'required|string|max:255',
+        ]);
 
+
+        if ($project = Project::create([
+            'name' => $request->project_name,
+            'user_id' => $request->user()->id,
+        ])) {
+            $flash = ['success' => __('Project created successfully.')];
+        } else {
+            $flash = ['error' => __('Failed to create the project.')];
+        }
+
+        return redirect()
+            ->route('projects.index')
+            ->with($flash);
+    }
     /**
      * Display the specified resource.
      *
