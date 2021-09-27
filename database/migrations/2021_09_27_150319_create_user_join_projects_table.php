@@ -36,8 +36,7 @@ class CreateUserJoinProjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_authorities');
-
         Schema::dropIfExists('user_join_projects');
+        Schema::dropIfExists('user_authorities');
     }
 }
