@@ -14,6 +14,11 @@
                     <!-- Validation Errors -->
                     <x-validation-errors :errors="$errors" />
 
+                    <div class="w-full py-3 flex justify-end">
+                        <x-button class="m-2 py-3 px-10">
+                            {{ __('Update') }}
+                        </x-button>
+                    </div>
 
                     <div class="-mx-3 md:flex mb-6">
                         <div class="md:w-full px-3 mb-6">
@@ -25,10 +30,16 @@
                                 required autofocus />
                         </div>
                     </div>
-
-                    <div class="max-w-full mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-end">
-                        <x-button class="m-2 py-3 px-10">
-                            {{ __('Update') }}
+                </form>
+                <form name="deleteform" method="POST"
+                    action="{{ route('projects.destroy', ['project' => $project]) }}">
+                    @csrf
+                    @method('DELETE')
+                    <!-- Navigation -->
+                    <div class="w-full py-6 flex justify-start">
+                        <x-button
+                            class="modal-open m-2 px-10 bg-red-600 text-white hover:bg-red-700 active:bg-red-900 focus:border-red-900 ring-red-300">
+                            {{ __('Delete') }}
                         </x-button>
                     </div>
                 </form>

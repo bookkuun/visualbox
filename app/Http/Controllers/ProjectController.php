@@ -42,7 +42,6 @@ class ProjectController extends Controller
             'project_name' => 'required|string|max:255',
         ]);
 
-
         if ($project = Project::create([
             'name' => $request->project_name,
             'user_id' => $request->user()->id,
@@ -64,7 +63,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        //
+        // なし
     }
 
     /**
@@ -91,8 +90,6 @@ class ProjectController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-
-
         if ($project = $project->update($request->all())) {
             $flash = ['success' => __('Project updated successfully.')];
         } else {
@@ -110,8 +107,16 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Project $project)
     {
-        //
+        if ($project->delete()) {
+            $flash = ['success' => __('Project deleted successfully.')];
+        } else {
+            $flash = ['error' => __('Failed to delete the project.')];
+        }
+
+        return redirect()
+            ->route('projects.index')
+            ->with($flash);
     }
 }
