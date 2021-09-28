@@ -23,10 +23,9 @@
         @include('layouts.navigation')
 
         <main class="flex">
-            <div class="w-1/5">
+            <div class="w-1/5 h-screen bg-blue-100">
                 {{-- サイドメニュー --}}
-                <a href="{{ route('projects.index') }}">プロジェクト一覧</a><br>
-                <a href="{{ route('projects.create') }}">プロジェクト作成</a>
+                @include('layouts.side-menu')
             </div>
             <div class="w-4/5">
                 <!-- メインヘッダー -->

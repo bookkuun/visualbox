@@ -616,7 +616,8 @@
     "Zambia": "Zambia",
     "Zimbabwe": "Zimbabwe",
 
-    "Project Name": "プロジェクト名",
+    "Project Title": "プロジェクト名",
+    "Projects": "プロジェクト一覧",
     "Project Create": "プロジェクト作成",
     "Project created successfully.": "プロジェクトの作成に成功しました。",
     "Project updated successfully.": "プロジェクトの更新に成功しました。",
