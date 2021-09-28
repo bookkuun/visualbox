@@ -85,7 +85,7 @@
                     <input id="due_date"
                         class="block w-full mt-1 py-2 border border-grey-lighter text-grey-darker  rounded shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                         {{ $errors->has('due_date') ? 'border-red-600' : '' }}" type="date" name="due_date"
-                        :value="$errors->has('due_date') ? null : old('due_date')" autofocus />
+                        value="{{ $errors->has('due_date') ? null : old('due_date') }}" autofocus />
                 </div>
             </div>
         </div>
