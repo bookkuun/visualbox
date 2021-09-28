@@ -97,9 +97,24 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Project $project, Task $task)
     {
-        //
+        $task_kinds = TaskKind::all();
+        $task_statuses = TaskStatus::all();
+        $task_categories = TaskCategory::all();
+        $assigners = User::all();
+
+        return view(
+            'tasks.edit',
+            compact(
+                'project',
+                'task',
+                'task_kinds',
+                'task_statuses',
+                'task_categories',
+                'assigners'
+            )
+        );
     }
 
     /**
@@ -109,9 +124,28 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Project $project, Task $task)
     {
-        //
+        $request->validate([
+            'task_kind_id' => 'required|integer',
+            'name' => 'required|string|max:255',
+            'detail' => 'nullable|string|max:1000',
+            'task_status_id' => 'required|integer',
+            'assigner_id' => 'nullable|integer',
+            'task_category_id' => 'nullable|integer',
+            'task_resolution_id' => 'nullable|integer',
+            'due_date' => 'nullable|date'
+        ]);
+
+        if ($task->update($request->all())) {
+            $flash = ['success' => __('Task updated successfully.')];
+        } else {
+            $flash = ['error' => __('Failed to update the task.')];
+        }
+
+        return redirect()
+            ->route('tasks.index', compact('project'))
+            ->with($flash);
     }
 
     /**
@@ -120,8 +154,16 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Project $project, Task $task)
     {
-        //
+        if ($task->delete()) {
+            $flash = ['success' => __('Task deleted successfully.')];
+        } else {
+            $flash = ['error' => __('Failed to delete the task.')];
+        }
+
+        return redirect()
+            ->route('tasks.index', ['project' => $project->id])
+            ->with($flash);
     }
 }

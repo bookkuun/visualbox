@@ -49,7 +49,7 @@
                     <tbody class="text-gray-600 text-sm font-light">
                         @foreach ($tasks as $task)
                             <tr class="border-b border-gray-200 hover:bg-gray-100 cursor-pointer @if ($loop->even)bg-gray-50 @endif"
-                                onclick="location.href='{{ route('tasks.show', ['project' => $project->id, 'task' => $task->id]) }}'">
+                                onclick="location.href='{{ route('tasks.edit', ['project' => $project->id, 'task' => $task->id]) }}'">
                                 <td class="py-3 px-6 text-left whitespace-nowrap">
                                     <span>{{ $task->task_kind->name }}</span>
                                 </td>
@@ -63,13 +63,14 @@
                                     @endif
                                 </td>
                                 <td class="py-3 px-6 text-center">
-                                    <span>{{ $task->created_at->format('Y/m/d') }}</span>
-                                </td>
-                                <td class="py-3 px-6 text-center">
                                     @if (isset($task->due_date))
-                                        <span>{{ $task->due_date }}</span>
+                                        <span>{{ $task->due_date->format('Y/m/d') }}</span>
                                     @endif
                                 </td>
+                                <td class="py-3 px-6 text-center">
+                                    <span>{{ $task->created_at->format('Y/m/d') }}</span>
+                                </td>
+
                                 <td class="py-3 px-6 text-center">
                                     <span>{{ $task->updated_at->format('Y/m/d') }}</span>
                                 </td>

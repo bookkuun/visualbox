@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Task extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     /**
      * マスアサインメントが可能な属性
@@ -27,6 +29,13 @@ class Task extends Model
         'due_date',
         'task_resolution_id',
     ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'due_date'
+    ];
+
 
     /**
      * 課題種別を取得.
