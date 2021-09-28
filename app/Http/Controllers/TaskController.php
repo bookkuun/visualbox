@@ -19,6 +19,10 @@ class TaskController extends Controller
      */
     public function index(Request $request, Project $project)
     {
+
+        $tasks = $project->tasks;
+
+        return view('tasks.index', compact('project', 'tasks'));
     }
 
     /**

@@ -20,4 +20,12 @@ class Project extends Model
         'name',
         'user_id',
     ];
+
+    /**
+     * プロジェクトを所有している課題を取得.
+     */
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 }
