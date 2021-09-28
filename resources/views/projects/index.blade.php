@@ -38,7 +38,7 @@
 
                                         <td class="py-3 px-6 text-left">
                                             <a class="underline font-medium text-gray-600 hover:text-gray-900"
-                                                href="{{ route('projects.edit', ['project' => $project->id]) }}">{{ $project->name }}</a>
+                                                href="{{ route('projects.edit', ['project' => $project->id]) }}">{{ $project->title }}</a>
                                         </td>
                                         <td class="py-3 px-6 text-center">
                                             <div class="flex item-center justify-between">
