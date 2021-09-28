@@ -19,18 +19,18 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
+    <div class=" bg-gray-100">
         @include('layouts.navigation')
 
         <main class="flex">
-            <div class="w-1/5 h-screen bg-blue-100">
+            <div class="w-1/5 h-auto bg-blue-100">
                 {{-- サイドメニュー --}}
                 @include('layouts.side-menu')
             </div>
             <div class="w-4/5">
                 <!-- メインヘッダー -->
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl py-6 px-6">
+                <header class="bg-green-200 shadow">
+                    <div class=" max-w-7xl py-6 px-6">
                         {{ $header }}
                     </div>
                 </header>
@@ -39,7 +39,7 @@
             </div>
         </main>
         {{-- フッター --}}
-        <footer class="h-screen">
+        <footer class="bg-green-200 h-screen">
         </footer>
     </div>
 </body>

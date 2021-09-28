@@ -5,7 +5,6 @@
         </h2>
     </x-slot>
 
-
     <div class="mx-auto">
         <div class="overflow-hidden sm:rounded-lg">
             <div class="p-6">
@@ -16,6 +15,7 @@
         </div>
     </div>
 
+    {{-- フラッシュメッセージ --}}
     <x-flash-message />
 
     <div class="flex flex-col mt-3 mx-6 mb-6 bg-white rounded">
@@ -48,12 +48,13 @@
                 </thead>
                 <tbody class="text-gray-600 text-sm font-light">
                     @foreach ($tasks as $task)
-                        <tr class="border-b border-gray-200 hover:bg-gray-100 cursor-pointer @if ($loop->even)bg-gray-50 @endif"
+                        <tr class="border-b border-gray-200 hover:bg-gray-100 cursor-pointer
+                        @if ($loop->even)bg-gray-50 @endif"
                             onclick="location.href='{{ route('tasks.edit', ['project' => $project->id, 'task' => $task->id]) }}'">
-                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                            <td class="py-3 px-6 text-left">
                                 <span>{{ $task->task_kind->name }}</span>
                             </td>
-                            <td class="py-3 px-6 text-left max-w-sm truncate">
+                            <td class="py-3 px-6 text-left">
                                 <a class="underline font-medium text-gray-600 hover:text-gray-900"
                                     href="{{ route('tasks.show', ['project' => $project->id, 'task' => $task->id]) }}">{{ $task->name }}</a>
                             </td>
@@ -85,5 +86,4 @@
             タスクの登録はまだありません。
         @endif
     </div>
-
 </x-app-layout>
