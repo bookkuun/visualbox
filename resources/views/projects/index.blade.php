@@ -33,7 +33,8 @@
                             <tbody class="text-gray-600 text-sm font-light">
                                 @foreach ($projects as $project)
 
-                                    <tr class="border-b border-gray-200 hover:bg-gray-100 cursor-pointer @if ($loop->even)bg-gray-50 @endif"
+                                    <tr class="border-b border-gray-200 hover:bg-gray-100 cursor-pointer
+                                        @if ($loop->even)bg-gray-50 @endif"
                                         onclick="location.href='{{ route('projects.edit', ['project' => $project->id]) }}'">
 
                                         <td class="py-3 px-6 text-left">

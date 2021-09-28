@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Seeders\Task;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -20,6 +21,11 @@ class Project extends Model
         'title',
         'user_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class)->withDefault();
+    }
 
     /**
      * プロジェクトを所有している課題を取得.
