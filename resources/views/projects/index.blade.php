@@ -21,13 +21,13 @@
                                     <th class="py-3 px-6 text-left">
                                         プロジェクト名
                                     </th>
-                                    <th class="py-3 px-6 text-center">
-                                        作った日
-                                    </th>
-                                    <th class="py-3 px-6 text-center">
-                                        更新した日
-                                    </th>
                                     <th class="py-3 px-6 text-center"></th>
+                                    <th class="py-3 px-6 text-center">
+                                        作成日
+                                    </th>
+                                    <th class="py-3 px-6 text-center">
+                                        更新日
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody class="text-gray-600 text-sm font-light">
@@ -41,19 +41,20 @@
                                                 href="{{ route('projects.edit', ['project' => $project->id]) }}">{{ $project->name }}</a>
                                         </td>
                                         <td class="py-3 px-6 text-center">
-                                            <span>{{ $project->created_at->format('Y/m/d') }}</span>
-                                        </td>
-                                        <td class="py-3 px-6 text-center">
-                                            <span>{{ $project->updated_at->format('Y/m/d') }}</span>
-                                        </td>
-                                        {{-- <td class="py-3 px-6 text-center">
                                             <div class="flex item-center justify-between">
                                                 <a class="underline text-sm text-gray-600 hover:text-gray-900"
                                                     href="{{ route('tasks.index', ['project' => $project->id]) }}">{{ __('Tasks') }}</a>
                                                 <a class="underline text-sm text-gray-600 hover:text-gray-900"
                                                     href="{{ route('tasks.create', ['project' => $project->id]) }}">{{ __('Task Create') }}</a>
                                             </div>
-                                        </td> --}}
+                                        </td>
+                                        <td class="py-3 px-6 text-center">
+                                            <span>{{ $project->created_at->format('Y/m/d') }}</span>
+                                        </td>
+                                        <td class="py-3 px-6 text-center">
+                                            <span>{{ $project->updated_at->format('Y/m/d') }}</span>
+                                        </td>
+
                                     </tr>
 
                                 @endforeach
