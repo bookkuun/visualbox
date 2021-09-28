@@ -26,7 +26,7 @@
         <!-- Page Content -->
         <main class="flex">
             <div class="w-1/5">
-                <a href="{{ route('projects.index') }}">プロジェクト一覧</a>
+                <a href="{{ route('projects.index') }}">プロジェクト一覧</a><br>
                 <a href="{{ route('projects.create') }}">プロジェクト作成</a>
             </div>
             <div class="w-4/5">
