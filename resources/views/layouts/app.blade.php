@@ -22,27 +22,25 @@
     <div class="min-h-screen bg-gray-100">
         @include('layouts.navigation')
 
-
-        <!-- Page Content -->
         <main class="flex">
             <div class="w-1/5">
+                {{-- サイドメニュー --}}
                 <a href="{{ route('projects.index') }}">プロジェクト一覧</a><br>
                 <a href="{{ route('projects.create') }}">プロジェクト作成</a>
             </div>
             <div class="w-4/5">
-
-                <!-- Page Heading -->
+                <!-- メインヘッダー -->
                 <header class="bg-white shadow">
                     <div class="max-w-7xl py-6 px-6">
                         {{ $header }}
                     </div>
                 </header>
+                {{-- メインコンテンツ --}}
                 {{ $slot }}
             </div>
         </main>
-
+        {{-- フッター --}}
         <footer class="h-screen">
-
         </footer>
     </div>
 </body>

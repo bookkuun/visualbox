@@ -147,8 +147,8 @@ return [
     */
 
     'attributes' => [
+        'title' => 'プロジェクト名',
         'password' => 'パスワード',
-        'project_name' => 'プロジェクト名'
     ],
 
 ];

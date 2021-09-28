@@ -39,11 +39,11 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'project_name' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
         ]);
 
         if ($project = Project::create([
-            'name' => $request->project_name,
+            'title' => $request->title,
             'user_id' => $request->user()->id,
         ])) {
             $flash = ['success' => __('Project created successfully.')];
@@ -87,7 +87,7 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
         ]);
 
         if ($project = $project->update($request->all())) {
