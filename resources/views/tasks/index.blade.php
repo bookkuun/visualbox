@@ -18,7 +18,7 @@
 
     <x-flash-message />
 
-    <div class="flex flex-col mx-6 mb-6 bg-white rounded">
+    <div class="flex flex-col mt-3 mx-6 mb-6 bg-white rounded">
         @if (0 < $tasks->count())
             <table class="min-w-max w-full table-auto">
                 <thead>

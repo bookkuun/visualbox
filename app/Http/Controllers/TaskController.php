@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskRequest;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\TaskCategory;
@@ -19,7 +20,6 @@ class TaskController extends Controller
      */
     public function index(Request $request, Project $project)
     {
-
         $tasks = $project->tasks;
 
         return view('tasks.index', compact('project', 'tasks'));
@@ -46,19 +46,8 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Project $project)
+    public function store(TaskRequest $request, Project $project)
     {
-        $request->validate([
-            'task_kind_id' => 'required|integer',
-            'name' => 'required|string|max:255',
-            'detail' => 'nullable|string|max:1000',
-            'task_status_id' => 'required|integer',
-            'assigner_id' => 'nullable|integer',
-            'task_category_id' => 'nullable|integer',
-            'task_resolution_id' => 'nullable|integer',
-            'due_date' => 'nullable|date',
-        ]);
-
         if (Task::create([
             'project_id' => $project->id,
             'task_kind_id' => $request->task_kind_id,
@@ -88,7 +77,7 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        //
+        // なし
     }
 
     /**
@@ -104,17 +93,7 @@ class TaskController extends Controller
         $task_categories = TaskCategory::all();
         $assigners = User::all();
 
-        return view(
-            'tasks.edit',
-            compact(
-                'project',
-                'task',
-                'task_kinds',
-                'task_statuses',
-                'task_categories',
-                'assigners'
-            )
-        );
+        return view('tasks.edit', compact('project', 'task', 'task_kinds', 'task_statuses', 'task_categories', 'assigners'));
     }
 
     /**
@@ -124,19 +103,8 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project, Task $task)
+    public function update(TaskRequest $request, Project $project, Task $task)
     {
-        $request->validate([
-            'task_kind_id' => 'required|integer',
-            'name' => 'required|string|max:255',
-            'detail' => 'nullable|string|max:1000',
-            'task_status_id' => 'required|integer',
-            'assigner_id' => 'nullable|integer',
-            'task_category_id' => 'nullable|integer',
-            'task_resolution_id' => 'nullable|integer',
-            'due_date' => 'nullable|date'
-        ]);
-
         if ($task->update($request->all())) {
             $flash = ['success' => __('Task updated successfully.')];
         } else {

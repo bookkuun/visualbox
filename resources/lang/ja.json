@@ -631,5 +631,8 @@
     "Assigner": "担当者",
     "Task Category": "カテゴリ",
     "Due Date": "締め切り",
-    "Create Cancel": "一覧に戻る"
+    "Create Cancel": "一覧に戻る",
+    "Task created successfully.": "タスクの作成に成功しました。",
+    "Task updated successfully.": "タスクの更新に成功しました。",
+    "Task deleted successfully.": "タスクの削除に成功しました。"
 }
