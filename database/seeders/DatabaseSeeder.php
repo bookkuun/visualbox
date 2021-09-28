@@ -13,6 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(TaskCategory::class);
+        $this->call(TaskKind::class);
+        $this->call(TaskResolution::class);
+        $this->call(TaskStatus::class);
         // \App\Models\User::factory(10)->create();
     }
 }

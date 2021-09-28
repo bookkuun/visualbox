@@ -620,5 +620,15 @@
     "Project Create": "プロジェクト作成",
     "Project created successfully.": "プロジェクトの作成に成功しました。",
     "Project updated successfully.": "プロジェクトの更新に成功しました。",
-    "Project deleted successfully.": "プロジェクトの削除に成功しました。"
+    "Project deleted successfully.": "プロジェクトの削除に成功しました。",
+    "Tasks": "タスクの一覧",
+    "Task Create": "タスクの作成",
+    "Task Kind": "タスクの種類",
+    "Task Name": "タスク名",
+    "Task Detail": "タスクの詳細",
+    "Task Status": "状況",
+    "Assigner": "担当者",
+    "Task Category": "カテゴリ",
+    "Due Date": "締め切り",
+    "Create Cancel": "一覧に戻る"
 }
