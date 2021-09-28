@@ -14,9 +14,10 @@ class TaskCategory extends Seeder
     public function run()
     {
         \App\Models\TaskCategory::insert([
-            ['name' => 'カテゴリ１', 'display_order' => 1],
-            ['name' => 'カテゴリ２', 'display_order' => 2],
-            ['name' => 'カテゴリ３', 'display_order' => 3],
+            ['name' => '教科指導', 'display_order' => 1],
+            ['name' => '生徒指導', 'display_order' => 2],
+            ['name' => '校務分掌', 'display_order' => 3],
+            ['name' => 'その他', 'display_order' => 3],
         ]);
     }
 }

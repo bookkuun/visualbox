@@ -39,6 +39,10 @@
                 {{ $slot }}
             </div>
         </main>
+
+        <footer class="h-screen">
+
+        </footer>
     </div>
 </body>
 

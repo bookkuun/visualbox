@@ -8,20 +8,7 @@
             {{ $project->name }} ({{ $project->key }})
         </h2>
     </x-slot>
-
-
-
     <div>
-        <div class="mx-auto">
-            <div class="overflow-hidden sm:rounded-lg">
-                <div class="p-6">
-                    <h3 class="font-semibold text-xl text-gray-800 leading-tight">
-                        {{ __('Task Create') }}
-                    </h3>
-                </div>
-            </div>
-        </div>
-
         <form method="POST" action="{{ route('tasks.store', ['project' => $project->id]) }}"
             enctype="multipart/form-data">
             @csrf
@@ -39,6 +26,12 @@
             </div>
 
             <div class="flex flex-col px-8 pt-6 mx-6 rounded-md bg-white">
+                <div class="py-5">
+                    <h3 class="font-semibold text-xl text-gray-800 leading-tight">
+                        {{ __('Task Create') }}
+                    </h3>
+                </div>
+
                 <div class="-mx-3 md:flex mb-6">
                     <div class="md:w-1/2 px-3 mb-6">
                         <x-label for="task_kind_id" :value="__('Task Kind')"
@@ -53,7 +46,8 @@
                             class="{{ $errors->has('name') ? 'text-red-600' : '' }}" />
                         <x-input id="name"
                             class="block mt-1 w-full {{ $errors->has('name') ? 'border-red-600' : '' }}" type="text"
-                            name="name" :value="old('name')" placeholder="課題名" required autofocus />
+                            name="name" :value="old('name')" placeholder="{{ __('Task Name') }}" required
+                            autofocus />
                     </div>
                 </div>
 
@@ -63,7 +57,7 @@
                             class="{{ $errors->has('detail') ? 'text-red-600' : '' }}" />
                         <x-textarea id="detail"
                             class="block mt-1 w-full {{ $errors->has('detail') ? 'border-red-600' : '' }}"
-                            name="detail" :value="old('detail')" rows="8" placeholder="課題の詳細" />
+                            name="detail" :value="old('detail')" rows="8" placeholder="{{ __('Task Detail') }}" />
                     </div>
                 </div>
 
@@ -95,10 +89,10 @@
                     <div class="md:w-1/4 px-3 mb-6">
                         <x-label for="due_date" :value="__('Due Date')"
                             class="{{ $errors->has('due_date') ? 'text-red-600' : '' }}" />
-                        <x-datepicker id="due_date"
-                            class="block mt-1 w-full {{ $errors->has('due_date') ? 'border-red-600' : '' }}"
-                            type="text" name="due_date" :value="$errors->has('due_date') ? null : old('due_date')"
-                            autofocus />
+                        <input id="due_date"
+                            class="block w-full mt-1 py-2 border border-grey-lighter text-grey-darker  rounded shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            {{ $errors->has('due_date') ? 'border-red-600' : '' }}" type="date" name="due_date"
+                            :value="$errors->has('due_date') ? null : old('due_date')" autofocus />
                     </div>
                 </div>
             </div>
