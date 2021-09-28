@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -36,14 +37,10 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProjectRequest $request)
     {
-        $request->validate([
-            'project_name' => 'required|string|max:255',
-        ]);
-
-        if ($project = Project::create([
-            'name' => $request->project_name,
+        if (Project::create([
+            'title' => $request->title,
             'user_id' => $request->user()->id,
         ])) {
             $flash = ['success' => __('Project created successfully.')];
@@ -84,13 +81,9 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(ProjectRequest $request, Project $project)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-
-        if ($project = $project->update($request->all())) {
+        if ($project->update($request->all())) {
             $flash = ['success' => __('Project updated successfully.')];
         } else {
             $flash = ['error' => __('Failed to update the project.')];

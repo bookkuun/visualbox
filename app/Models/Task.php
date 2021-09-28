@@ -58,7 +58,15 @@ class Task extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'created_user_id');
+        return $this->belongsTo(User::class, 'created_user_id')->withDefault();
+    }
+
+    /**
+     * 課題を所有しているプロジェクトを取得.
+     */
+    public function project()
+    {
+        return $this->belongsTo(Project::class, 'created_user_id')->withDefault();
     }
 
     /**

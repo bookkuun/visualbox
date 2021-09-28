@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,9 +18,15 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
+        'title',
         'user_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class)->withDefault();
+        // withDefault()はnullを回避できるようになる
+    }
 
     /**
      * プロジェクトを所有している課題を取得.

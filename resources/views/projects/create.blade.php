@@ -10,7 +10,6 @@
         <!-- Validation Errors -->
         <x-validation-errors :errors="$errors" />
 
-
         <!-- Navigation -->
         <div class="max-w-full mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-end">
             <x-link-button class="m-2" :href="route('projects.index')">
@@ -25,15 +24,12 @@
             <div class="p-6 bg-white border-b border-gray-200">
                 @csrf
                 <div class="md:w-full px-3 mb-6">
-                    <x-label for="project_name" :value="__('Project Name')"
-                        class="{{ $errors->has('project_name') ? 'text-red-600' : '' }}" />
-                    <x-input id="project_name"
-                        class="block mt-1 w-full {{ $errors->has('project_name') ? 'border-red-600' : '' }}"
-                        type="text" name="project_name" :value="old('project_name')"
-                        placeholder="{{ __('Project Name') }}" required autofocus />
+                    <x-label for="title" :value="__('Project Title')"
+                        class="{{ $errors->has('title') ? 'text-red-600' : '' }}" />
+                    <x-input id="title" class="block mt-1 w-full {{ $errors->has('title') ? 'border-red-600' : '' }}"
+                        type="text" name="title" :value="old('title')" placeholder="{{ __('Project Title') }}"
+                        required autofocus />
                 </div>
-
-
             </div>
         </div>
     </form>

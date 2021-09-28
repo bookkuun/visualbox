@@ -19,30 +19,27 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
+    <div class=" bg-gray-100">
         @include('layouts.navigation')
 
-
-        <!-- Page Content -->
         <main class="flex">
-            <div class="w-1/5">
-                <a href="{{ route('projects.index') }}">プロジェクト一覧</a><br>
-                <a href="{{ route('projects.create') }}">プロジェクト作成</a>
+            <div class="w-1/5 h-auto bg-blue-100">
+                {{-- サイドメニュー --}}
+                @include('layouts.side-menu')
             </div>
             <div class="w-4/5">
-
-                <!-- Page Heading -->
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl py-6 px-6">
+                <!-- メインヘッダー -->
+                <header class="bg-green-200 shadow">
+                    <div class=" max-w-7xl py-6 px-6">
                         {{ $header }}
                     </div>
                 </header>
+                {{-- メインコンテンツ --}}
                 {{ $slot }}
             </div>
         </main>
-
-        <footer class="h-screen">
-
+        {{-- フッター --}}
+        <footer class="bg-green-200 h-screen">
         </footer>
     </div>
 </body>
