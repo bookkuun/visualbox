@@ -18,4 +18,5 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
     Route::resource('projects', ProjectController::class);
     Route::resource('projects/{project}/tasks', TaskController::class);
+    Route::resource('projects/{project}/tasks/{task}/comments', TaskController::class);
 });
