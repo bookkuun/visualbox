@@ -36,7 +36,6 @@ class Task extends Model
         'due_date'
     ];
 
-
     /**
      * 課題種別を取得.
      */
@@ -99,5 +98,13 @@ class Task extends Model
     public function task_resolution()
     {
         return $this->belongsTo(TaskResolution::class, 'task_resolution_id');
+    }
+
+    /**
+     * 課題のコメントを取得.
+     */
+    public function task_comments()
+    {
+        return $this->hasMany(TaskComment::class);
     }
 }

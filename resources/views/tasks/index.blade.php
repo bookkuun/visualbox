@@ -50,7 +50,7 @@
                     @foreach ($tasks as $task)
                         <tr class="border-b border-gray-200 hover:bg-gray-100 cursor-pointer
                         @if ($loop->even)bg-gray-50 @endif"
-                            onclick="location.href='{{ route('tasks.edit', ['project' => $project->id, 'task' => $task->id]) }}'">
+                            onclick="location.href='{{ route('tasks.show', ['project' => $project->id, 'task' => $task->id]) }}'">
                             <td class="py-3 px-6 text-left">
                                 <span>{{ $task->task_kind->name }}</span>
                             </td>

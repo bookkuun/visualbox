@@ -75,9 +75,15 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Project $project, Task $task)
     {
-        // なし
+        $task_kinds = TaskKind::all();
+        $task_statuses = TaskStatus::all();
+        $task_categories = TaskCategory::all();
+        $assigners = User::all();
+        $task_comments = $task->task_comments;
+
+        return view('tasks.show',  compact('project', 'task', 'task_kinds', 'task_statuses', 'task_categories', 'assigners', 'task_comments'));
     }
 
     /**

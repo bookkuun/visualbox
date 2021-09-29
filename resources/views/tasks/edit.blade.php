@@ -20,7 +20,7 @@
                 </x-button>
         </div>
 
-        <div class="flex flex-col px-8 pt-6 mx-3 rounded-md bg-white">
+        <div class="flex flex-col px-8 pt-6 mx-6 rounded-md bg-white">
             <div class="py-5">
                 <h3 class="font-semibold text-xl text-gray-800 leading-tight">
                     {{ __('Task Create') }}
@@ -88,9 +88,9 @@
                     <input id="due_date"
                         class="block w-full mt-1 py-2 border border-grey-lighter text-grey-darker  rounded shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
                         {{ $errors->has('due_date') ? 'border-red-600' : '' }}"
-                        type="date" name="due_date" value="{{ $task->due_date->format('Y-m-d') ?? old('due_date') }}"
+                        type="date" name="due_date"
+                        value="{{ $task->due_date ? $task->due_date->format('Y-m-d') : old('due_date') }}"
                         autofocus />
-
                 </div>
             </div>
         </div>

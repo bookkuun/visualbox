@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class TaskComment extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'task_id',
+        'comment',
+        'user_id',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class)->withDefault();
+    }
 }
