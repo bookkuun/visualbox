@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-bold text-xl text-gray-800 leading-tight">
-            {{ $project->name }}
+            {{ $project->title }}
         </h2>
     </x-slot>
     <form method="POST" action="{{ route('tasks.update', ['project' => $project->id, 'task' => $task->id]) }}">
@@ -105,8 +105,45 @@
             <x-button id="delete-task-modal"
                 class="modal-open m-2 px-10 bg-red-600 text-white hover:bg-red-700 active:bg-red-900
                     focus:border-red-900 ring-red-300">
-                {{ __('Delete') }}
+                {{ __('Task Delete') }}
             </x-button>
         </div>
     </form>
+
+    @foreach ($task_comments as $comment)
+        <div class="flex justify-between p-2 mx-6 mb-6 rounded-md bg-white">
+            <div class="flex flex-row w-full">
+                <div>
+                    <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+                </div>
+
+                <div class="pl-2 w-full">
+                    <div class="flex justify-between">
+                        <div>
+                            <span class="font-bold text-lg">{{ $comment->user->name }}</span>
+                            <br>
+                            {{ $comment->created_at }}
+                        </div>
+                        @if (Auth::user()->own($comment))
+                            <div class="pt-2 pr-2">
+                                <form method="POST"
+                                    action="{{ route('comments.destroy', ['project' => $project->id, 'task' => $task, 'comment' => $comment]) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button id="delete-comment-modal-{{ $comment->id }}"
+                                        class=" py-1 px-6 bg-gray-200 hover:bg-gray-300 border-2 focus:outline-none focus:ring-2 focus:ring-red-300 active:border-red-200 text-red-600 border-red-600 rounded">
+                                        <span class="text-xs">{{ __('Delete') }}</span>
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="my-2 w-full">
+                        {!! nl2br(e($comment->comment)) !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
 </x-app-layout>
