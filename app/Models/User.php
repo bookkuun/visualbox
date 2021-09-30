@@ -73,4 +73,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Task::class, 'assigner_id');
     }
+
+    public function own($something)
+    {
+        return $this->id === $something->user_id;
+    }
 }
