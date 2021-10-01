@@ -18,8 +18,8 @@
     {{-- フラッシュメッセージ --}}
     <x-flash-message />
 
-    <div class="flex flex-col mt-3 mx-6 mb-6 bg-white rounded">
-        @if (0 < $tasks->count())
+    @if (0 < $tasks->count())
+        <div class="flex flex-col mt-3 mx-6 mb-6 bg-white rounded">
             <table class="min-w-max w-full table-auto">
                 <thead>
                     <tr class="bg-gray-200 text-gray-600 text-sm leading-normal">
@@ -82,8 +82,10 @@
                     @endforeach
                 </tbody>
             </table>
-        @else
-            タスクの登録はまだありません。
-        @endif
-    </div>
+        </div>
+    @else
+        <div class="ml-6 mb-6">
+            タスクの登録はありません。
+        </div>
+    @endif
 </x-app-layout>

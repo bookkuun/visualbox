@@ -27,8 +27,8 @@
         </div>
     </form>
 
-    <div class="flex flex-col mx-6 mb-6 bg-white rounded">
-        @if (0 < $projects->count())
+    @if (0 < $projects->count())
+        <div class="flex flex-col mx-6 mb-6 bg-white rounded">
             <table class="min-w-max w-full table-auto">
                 <thead>
                     <tr class="bg-gray-200 text-gray-600 text-sm leading-normal">
@@ -74,10 +74,12 @@
                     @endforeach
                 </tbody>
             </table>
-        @else
+        </div>
+    @else
+        <div class="ml-10">
             プロジェクトの登録はありません。
-        @endif
-    </div>
+        </div>
+    @endif
     <div class="flex justify-center mb-6">
         {{ $projects->links() }}
     </div>
