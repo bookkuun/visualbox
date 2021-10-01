@@ -147,6 +147,7 @@ return [
     */
 
     'attributes' => [
+        'keyword' => 'キーワード',
         'title' => 'プロジェクト名',
         'password' => 'パスワード',
     ],

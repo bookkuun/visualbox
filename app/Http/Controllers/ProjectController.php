@@ -14,11 +14,20 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->validate([
+            'keyword' => 'max:255',
+        ]);
+
+        $keyword = $request->input('keyword');
         $projects = Project::all();
 
-        return view('projects.index', compact('projects'));
+        if ($request->has('keyword') && $keyword != '') {
+            $projects = Project::where('title', 'like', '%' . $keyword . '%')->get();
+        }
+
+        return view('projects.index', compact('projects', 'keyword'));
     }
 
     /**
