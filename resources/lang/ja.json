@@ -449,7 +449,7 @@
     "Saudi Arabia": "Saudi Arabia",
     "Save": "更新",
     "Saved.": "更新完了",
-    "Search": "Search",
+    "Search": "検索",
     "Select A New Photo": "新しい写真を選択",
     "Select Action": "Select Action",
     "Select All": "Select All",
@@ -636,5 +636,6 @@
     "Task updated successfully.": "タスクの更新に成功しました。",
     "Task deleted successfully.": "タスクの削除に成功しました。",
     "Task Comment": "コメント",
-    "Task Delete": "タスクを削除する"
+    "Task Delete": "タスクを削除する",
+    "Keyword": "キーワード"
 }

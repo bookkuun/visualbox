@@ -5,21 +5,30 @@
         </h2>
     </x-slot>
 
-    <div class="mx-auto">
-        <div class="overflow-hidden sm:rounded-lg">
-            <div class="p-6">
-                <h3 class="font-semibold text-xl text-gray-800 leading-tight">
-                    {{ __('Projects') }}
-                </h3>
+    <form method="GET" action="{{ route('projects.index') }}">
+
+        <!-- Validation Errors -->
+        <x-flash-message />
+        <x-validation-errors :errors="$errors" />
+
+        <!-- Navigation -->
+        <div class="flex max-w-full mx-auto px-4 py-6 sm:px-6 lg:px-6">
+            <div class="md:w-1/3 px-3 mb-6 mr-6">
+                <x-label for="keyword" :value="__('Keyword')"
+                    class="{{ $errors->has('keyword') ? 'text-red-600' : '' }}" />
+                <x-input id="keyword" class="block mt-1 w-full {{ $errors->has('keyword') ? 'border-red-600' : '' }}"
+                    type="text" name="keyword" :value="$keyword" :placeholder="__('Keyword')" autofocus />
+            </div>
+            <div class="flex flex-wrap content-center">
+                <x-button class="px-10">
+                    {{ __('Search') }}
+                </x-button>
             </div>
         </div>
-    </div>
+    </form>
 
-    {{-- フラッシュメッセージ --}}
-    <x-flash-message />
-
-    <div class="flex flex-col mt-3 mx-6 mb-6 bg-white rounded">
-        @if (0 < $projects->count())
+    @if (0 < $projects->count())
+        <div class="flex flex-col mx-6 mb-6 bg-white rounded">
             <table class="min-w-max w-full table-auto">
                 <thead>
                     <tr class="bg-gray-200 text-gray-600 text-sm leading-normal">
@@ -65,8 +74,14 @@
                     @endforeach
                 </tbody>
             </table>
-        @else
-            プロジェクトの登録はまだありません。
-        @endif
+        </div>
+    @else
+        <div class="ml-10">
+            プロジェクトの登録はありません。
+        </div>
+    @endif
+    <div class="flex justify-center mb-6">
+        {{ $projects->links() }}
     </div>
+
 </x-app-layout>
