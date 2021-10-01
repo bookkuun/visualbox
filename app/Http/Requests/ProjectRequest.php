@@ -25,6 +25,8 @@ class ProjectRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
+            'users.*.id' => ['required', 'distinct'],
+            'users.*.authority' => ['required'],
         ];
     }
 }

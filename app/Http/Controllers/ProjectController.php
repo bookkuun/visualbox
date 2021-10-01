@@ -6,6 +6,7 @@ use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
 use App\Models\User;
 use App\Models\UserAuthority;
+use App\Models\UserJoinProject;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -55,10 +56,17 @@ class ProjectController extends Controller
      */
     public function store(ProjectRequest $request)
     {
-        if (Project::create([
+        if ($project = Project::create([
             'title' => $request->title,
             'user_id' => $request->user()->id,
         ])) {
+            foreach ($request->users as $user) {
+                UserJoinProject::create([
+                    'user_id' => (int)$user['id'],
+                    'project_id' => $project->id,
+                    'user_authority_id' => (int)$user['authority'],
+                ]);
+            }
             $flash = ['success' => __('Project created successfully.')];
         } else {
             $flash = ['error' => __('Failed to create the project.')];
