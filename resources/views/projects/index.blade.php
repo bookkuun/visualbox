@@ -27,7 +27,7 @@
         </div>
     </form>
 
-    <div class="flex flex-col mt-3 mx-6 mb-6 bg-white rounded">
+    <div class="flex flex-col mx-6 mb-6 bg-white rounded">
         @if (0 < $projects->count())
             <table class="min-w-max w-full table-auto">
                 <thead>
@@ -77,6 +77,9 @@
         @else
             プロジェクトの登録はありません。
         @endif
+    </div>
+    <div class="flex justify-center mb-6">
+        {{ $projects->links() }}
     </div>
 
 </x-app-layout>
