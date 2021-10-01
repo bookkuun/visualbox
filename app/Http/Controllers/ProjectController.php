@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
 use App\Models\User;
+use App\Models\UserAuthority;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -37,7 +38,13 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('projects.create');
+        $users = User::all();
+
+        $user_authorities = UserAuthority::all();
+
+        $admin_id = 3;
+
+        return view('projects.create', compact('users', 'user_authorities', 'admin_id'));
     }
 
     /**

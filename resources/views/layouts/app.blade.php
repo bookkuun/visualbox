@@ -43,6 +43,7 @@
             <small>©2021 visualbox</small>
         </footer>
     </div>
+    @yield('script')
 </body>
 
 </html>

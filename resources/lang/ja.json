@@ -639,5 +639,7 @@
     "Task Delete": "タスクを削除する",
     "Keyword": "キーワード",
     "Project Edit": "プロジェクトの編集",
-    "Project Delete": "プロジェクトを削除する"
+    "Project Delete": "プロジェクトを削除する",
+    "Member": "メンバー",
+    "User Authority": "権限"
 }
