@@ -1,6 +1,9 @@
 <x-app-layout>
+
+    @include('partial.project-sidemenu')
+
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2>
             {{ __('Projects') }}
         </h2>
     </x-slot>

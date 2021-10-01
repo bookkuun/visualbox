@@ -22,15 +22,15 @@
     <div class=" bg-gray-100">
         @include('layouts.navigation')
 
-        <main class="flex">
-            <div class="w-1/5 h-auto bg-blue-100">
+        <main class="md:flex">
+            <div class="w-1/5 h-auto bg-gray-600 text-white text-xl font-semibold">
                 {{-- サイドメニュー --}}
-                @include('layouts.side-menu')
+                {{ $sidemenu }}
             </div>
             <div class="w-4/5">
                 <!-- メインヘッダー -->
-                <header class="bg-green-200 shadow">
-                    <div class=" max-w-7xl py-6 px-6">
+                <header class="bg-gray-600 text-white font-semibold text-xl shadow">
+                    <div class="max-w-7xl py-6 px-6">
                         {{ $header }}
                     </div>
                 </header>
@@ -39,7 +39,8 @@
             </div>
         </main>
         {{-- フッター --}}
-        <footer class="bg-green-200 h-screen">
+        <footer class="bg-gray-600 text-white text-2xl text-center h-auto p-20">
+            <small>©2021 visualbox</small>
         </footer>
     </div>
 </body>

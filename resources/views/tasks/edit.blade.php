@@ -1,9 +1,13 @@
 <x-app-layout>
+
+    @include('partial.task-sidemenu')
+
     <x-slot name="header">
-        <h2 class="font-bold text-xl text-gray-800 leading-tight">
+        <h2>
             {{ $project->title }}
         </h2>
     </x-slot>
+
     <form method="POST" action="{{ route('tasks.update', ['project' => $project->id, 'task' => $task->id]) }}">
         @csrf
         @method('PUT')
@@ -22,27 +26,28 @@
 
         <div class="flex flex-col px-8 pt-6 mx-6 rounded-md bg-white">
             <div class="py-5">
-                <h3 class="font-semibold text-xl text-gray-800 leading-tight">
+                <h3 ">
                     {{ __('Task Create') }}
                 </h3>
             </div>
 
-            <div class="-mx-3 md:flex mb-6">
-                <div class="md:w-1/2 px-3 mb-6">
-                    <x-label for="task_kind_id" :value="__('Task Kind')"
-                        class="{{ $errors->has('task_kind_id') ? 'text-red-600' : '' }}" />
-                    <x-select :options="$task_kinds" id="task_kind_id"
-                        class="block mt-1 w-full {{ $errors->has('task_kind_id') ? 'border-red-600' : '' }}"
-                        name="task_kind_id" :value="old('task_kind_id', $task->task_kind_id)" required autofocus />
-                </div>
+            <div class="  -mx-3 md:flex mb-6">
+                    <div class="md:w-1/2 px-3 mb-6">
+                        <x-label for="task_kind_id" :value="__('Task Kind')"
+                            class="{{ $errors->has('task_kind_id') ? 'text-red-600' : '' }}" />
+                        <x-select :options="$task_kinds" id="task_kind_id"
+                            class="block mt-1 w-full {{ $errors->has('task_kind_id') ? 'border-red-600' : '' }}"
+                            name="task_kind_id" :value="old('task_kind_id', $task->task_kind_id)" required autofocus />
+                    </div>
 
-                <div class="md:w-full px-3 mb-6">
-                    <x-label for="name" :value="__('Task Name')"
-                        class="{{ $errors->has('name') ? 'text-red-600' : '' }}" />
-                    <x-input id="name" class="block mt-1 w-full {{ $errors->has('name') ? 'border-red-600' : '' }}"
-                        type="text" name="name" :value="old('name', $task->name)" placeholder="{{ __('Task Name') }}"
-                        required autofocus />
-                </div>
+                    <div class="md:w-full px-3 mb-6">
+                        <x-label for="name" :value="__('Task Name')"
+                            class="{{ $errors->has('name') ? 'text-red-600' : '' }}" />
+                        <x-input id="name"
+                            class="block mt-1 w-full {{ $errors->has('name') ? 'border-red-600' : '' }}" type="text"
+                            name="name" :value="old('name', $task->name)" placeholder="{{ __('Task Name') }}" required
+                            autofocus />
+                    </div>
             </div>
 
             <div class="-mx-3 md:flex mb-6">

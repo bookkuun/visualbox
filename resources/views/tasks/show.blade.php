@@ -1,6 +1,9 @@
 <x-app-layout>
+
+    @include('partial.task-sidemenu')
+
     <x-slot name="header">
-        <h2 class="font-bold text-xl text-gray-800 leading-tight">
+        <h2>
             {{ $project->title }}
         </h2>
     </x-slot>
@@ -17,22 +20,22 @@
 
     <div class="flex flex-col px-8 pt-6 mx-6 rounded-md bg-white">
         <div class="py-5">
-            <h3 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h3 ">
                 {{ __('Task Edit') }}
             </h3>
         </div>
 
-        <div class="-mx-3 md:flex mb-6">
-            <div class="md:w-1/2 px-6 mb-6">
-                <x-label :value="__('Task Kind')" />
-                <x-select :disabled=true :options="$task_kinds" id="task_kind_id" name="task_kind_id"
-                    class="block mt-1 w-full" :value="$task->task_kind_id" />
-            </div>
+        <div class="  -mx-3 md:flex mb-6">
+                <div class="md:w-1/2 px-6 mb-6">
+                    <x-label :value="__('Task Kind')" />
+                    <x-select :disabled=true :options="$task_kinds" id="task_kind_id" name="task_kind_id"
+                        class="block mt-1 w-full" :value="$task->task_kind_id" />
+                </div>
 
-            <div class="md:w-full px-3 mb-6">
-                <x-label :value="__('Task Name')" />
-                <x-input :disabled=true name="name" class="block mt-1 w-full" type="text" :value="$task->name" />
-            </div>
+                <div class="md:w-full px-3 mb-6">
+                    <x-label :value="__('Task Name')" />
+                    <x-input :disabled=true name="name" class="block mt-1 w-full" type="text" :value="$task->name" />
+                </div>
         </div>
 
         <div class="-mx-3 md:flex mb-6">
