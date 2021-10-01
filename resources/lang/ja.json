@@ -637,5 +637,7 @@
     "Task deleted successfully.": "タスクの削除に成功しました。",
     "Task Comment": "コメント",
     "Task Delete": "タスクを削除する",
-    "Keyword": "キーワード"
+    "Keyword": "キーワード",
+    "Project Edit": "プロジェクトの編集",
+    "Project Delete": "プロジェクトを削除する"
 }

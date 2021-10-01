@@ -28,7 +28,7 @@
                         class="{{ $errors->has('title') ? 'text-red-600' : '' }}" />
                     <x-input id="title" class="block mt-1 w-full {{ $errors->has('title') ? 'border-red-600' : '' }}"
                         type="text" name="title" :value="old('title')" placeholder="{{ __('Project Title') }}"
-                        required autofocus />
+                        autofocus />
                 </div>
             </div>
         </div>
