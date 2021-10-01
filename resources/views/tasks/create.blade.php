@@ -1,9 +1,13 @@
 <x-app-layout>
+
+    @include('partial.task-sidemenu')
+
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2>
             {{ $project->title }}
         </h2>
     </x-slot>
+
     <form method="POST" action="{{ route('tasks.store', ['project' => $project->id]) }}">
         @csrf
         <!-- Validation Errors -->
@@ -13,20 +17,20 @@
         <div class="max-w-full mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-end">
             <x-link-button class="m-2" :href="route('tasks.index', ['project' => $project->id])">
                 {{ __('Create Cancel') }}
-                </x-button>
-                <x-button class="m-2 px-10">
-                    {{ __('Create') }}
-                </x-button>
+            </x-link-button>
+            <x-button class="m-2 px-10">
+                {{ __('Create') }}
+            </x-button>
         </div>
 
         <div class="flex flex-col px-8 pt-6 mx-3 rounded-md bg-white">
             <div class="py-5">
-                <h3 class="font-semibold text-xl text-gray-800 leading-tight">
+                <h3>
                     {{ __('Task Create') }}
                 </h3>
             </div>
 
-            <div class="-mx-3 md:flex mb-6">
+            <div class="   -mx-3 md:flex mb-6">
                 <div class="md:w-1/2 px-3 mb-6">
                     <x-label for="task_kind_id" :value="__('Task Kind')"
                         class="{{ $errors->has('task_kind_id') ? 'text-red-600' : '' }}" />

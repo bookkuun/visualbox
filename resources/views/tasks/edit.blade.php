@@ -1,9 +1,13 @@
 <x-app-layout>
+
+    @include('partial.task-sidemenu')
+
     <x-slot name="header">
-        <h2 class="font-bold text-xl text-gray-800 leading-tight">
+        <h2>
             {{ $project->title }}
         </h2>
     </x-slot>
+
     <form method="POST" action="{{ route('tasks.update', ['project' => $project->id, 'task' => $task->id]) }}">
         @csrf
         @method('PUT')
@@ -14,20 +18,20 @@
         <div class="max-w-full mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-end">
             <x-link-button class="m-2" :href="route('tasks.index', ['project' => $project->id])">
                 {{ __('Create Cancel') }}
-                </x-button>
-                <x-button class="m-2 px-10">
-                    {{ __('Create') }}
-                </x-button>
+            </x-link-button>
+            <x-button class="m-2 px-10">
+                {{ __('Create') }}
+            </x-button>
         </div>
 
         <div class="flex flex-col px-8 pt-6 mx-6 rounded-md bg-white">
             <div class="py-5">
-                <h3 class="font-semibold text-xl text-gray-800 leading-tight">
+                <h3>
                     {{ __('Task Create') }}
                 </h3>
             </div>
 
-            <div class="-mx-3 md:flex mb-6">
+            <div class="       -mx-3 md:flex mb-6">
                 <div class="md:w-1/2 px-3 mb-6">
                     <x-label for="task_kind_id" :value="__('Task Kind')"
                         class="{{ $errors->has('task_kind_id') ? 'text-red-600' : '' }}" />
@@ -103,8 +107,9 @@
         <!-- Navigation -->
         <div class="max-w-full mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-start">
             <x-button id="delete-task-modal"
-                class="modal-open m-2 px-10 bg-red-600 text-white hover:bg-red-700 active:bg-red-900
-                    focus:border-red-900 ring-red-300">
+                class="m-2 px-10 bg-red-600 text-white hover:bg-red-700 active:bg-red-900
+                    focus:border-red-900 ring-red-300"
+                onclick="return confirm('本当に削除しますか？')">
                 {{ __('Task Delete') }}
             </x-button>
         </div>
@@ -131,8 +136,9 @@
                                     @csrf
                                     @method('DELETE')
                                     <button id="delete-comment-modal-{{ $comment->id }}"
-                                        class=" py-1 px-6 bg-gray-200 hover:bg-gray-300 border-2 focus:outline-none focus:ring-2 focus:ring-red-300 active:border-red-200 text-red-600 border-red-600 rounded">
-                                        <span class="text-xs">{{ __('Delete') }}</span>
+                                        class="py-1 px-6 bg-gray-200 hover:bg-gray-300 border-2 focus:outline-none focus:ring-2 focus:ring-red-300 active:border-red-200 text-base text-red-600 border-red-600 rounded"
+                                        onclick="return confirm('本当に削除してもよいですか？')">
+                                        <span>{{ __('Delete') }}</span>
                                     </button>
                                 </form>
                             </div>
