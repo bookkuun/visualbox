@@ -1,6 +1,8 @@
 <x-app-layout>
 
-    @include('partial.task-sidemenu')
+    <x-slot name="sidemenu">
+        @include('layouts.sidemenu.task-sidemenu')
+    </x-slot>
 
     <x-slot name="header">
         <h2>
