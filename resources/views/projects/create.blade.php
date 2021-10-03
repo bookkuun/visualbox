@@ -4,7 +4,9 @@
 
 <x-app-layout>
 
-    @include('partial.project-sidemenu')
+    <x-slot name="sidemenu">
+        @include('layouts.sidemenu.project-sidemenu')
+    </x-slot>
 
     <x-slot name="header">
         <h2>
