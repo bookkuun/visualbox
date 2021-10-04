@@ -1,17 +1,16 @@
-<div class="w-1/6 bg-gray-800 text-white rounded p-3 shadow-lg">
-    <div class="flex items-center space-x-4 p-2 mb-5">
-        {{-- アイコン導入予定 --}}
-        {{-- <img class="h-12 rounded-full" src="" alt=""> --}}
-        <div>
-            <h4 class="font-semibold text-2xl capitalize font-poppins tracking-wide">Select Menu</h4>
-        </div>
+<div class="flex items-center space-x-4 p-2 mb-5">
+    {{-- アイコン導入予定 --}}
+    {{-- <img class="h-12 rounded-full" src="" alt=""> --}}
+    <div>
+        <h4 class="font-semibold text-2xl capitalize font-poppins tracking-wide">Select Menu</h4>
     </div>
-    <ul class="space-y-2 text-lg font-semibold">
-        <li>
-            <a href="{{ route('projects.index') }}"
-                class="flex items-center space-x-3 p-2 rounded-md  hover:bg-gray-200 hover:text-gray-800 focus:bg-gray-200 focus:shadow-outline">
-                {{-- アイコン導入予定 --}}
-                {{-- <span class="text-gray-600">
+</div>
+<ul class="space-y-2 text-lg font-semibold">
+    <li>
+        <a href="{{ route('projects.index') }}"
+            class="flex items-center space-x-3 p-2 rounded-md  hover:bg-gray-200 hover:text-gray-800 focus:bg-gray-200 focus:shadow-outline">
+            {{-- アイコン導入予定 --}}
+            {{-- <span class="text-gray-600">
                     <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -19,14 +18,13 @@
                         </path>
                     </svg>
                 </span> --}}
-                <span>プロジェクト一覧</span>
-            </a>
-        </li>
-        <li>
-            <a href="{{ route('projects.create') }}"
-                class="flex items-center space-x-3 p-2 rounded-md hover:bg-gray-200 hover:text-gray-800 focus:bg-gray-200 focus:shadow-outline">
-                <span>プロジェクト作成</span>
-            </a>
-        </li>
-    </ul>
-</div>
+            <span>プロジェクト一覧</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('projects.create') }}"
+            class="flex items-center space-x-3 p-2 rounded-md hover:bg-gray-200 hover:text-gray-800 focus:bg-gray-200 focus:shadow-outline">
+            <span>プロジェクト作成</span>
+        </a>
+    </li>
+</ul>

@@ -1,4 +1,3 @@
-<div class="w-1/6 bg-gray-800 text-white rounded p-3 shadow-lg">
     <div class="flex items-center space-x-4 p-2 mb-5">
         {{-- アイコン導入予定 --}}
         {{-- <img class="h-12 rounded-full" src="" alt=""> --}}
@@ -41,4 +40,3 @@
             </a>
         </li>
     </ul>
-</div>
