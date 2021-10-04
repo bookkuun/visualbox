@@ -6,7 +6,7 @@ document
         const project_members = document.querySelector("#project_members");
         const new_member = member.cloneNode(true);
         new_member.classList.remove("hidden");
-        new_member.classList.add("md:flex");
+        new_member.classList.add("flex");
         const user = new_member.querySelector('[data="user"]');
         const user_authority = new_member.querySelector(
             '[data="user_authority"]'

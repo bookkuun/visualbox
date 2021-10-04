@@ -19,14 +19,15 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class=" bg-gray-100">
+    <div class="bg-gray-100">
         @include('layouts.navigation')
 
-        <main class="md:flex">
+        <main class="flex">
+            {{-- サイドメニュー --}}
             <div class="w-1/5 h-auto bg-gray-600 text-white text-xl font-semibold">
-                {{-- サイドメニュー --}}
                 {{ $sidemenu }}
             </div>
+
             <div class="w-4/5">
                 <!-- メインヘッダー -->
                 <header class="bg-gray-600 text-white font-semibold text-xl shadow">
@@ -43,6 +44,7 @@
             <small>©2021 visualbox</small>
         </footer>
     </div>
+    {{-- JS --}}
     @yield('script')
 </body>
 
