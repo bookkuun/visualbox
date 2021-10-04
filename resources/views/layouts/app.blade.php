@@ -24,19 +24,18 @@
 
         <main class="flex">
             {{-- サイドメニュー --}}
-            <div class="w-1/5 h-auto bg-gray-600 text-white text-xl font-semibold">
+            <div class="flex flex-wrap bg-blue-100 w-full h-screen">
                 {{ $sidemenu }}
-            </div>
-
-            <div class="w-4/5">
-                <!-- メインヘッダー -->
-                <header class="bg-gray-600 text-white font-semibold text-xl shadow">
-                    <div class="max-w-7xl py-6 px-6">
-                        {{ $header }}
-                    </div>
-                </header>
-                {{-- メインコンテンツ --}}
-                {{ $slot }}
+                <div class="w-5/6">
+                    <!-- メインヘッダー -->
+                    <header class="bg-gray-600 text-white font-semibold text-xl shadow">
+                        <div class="max-w-7xl py-6 px-6">
+                            {{ $header }}
+                        </div>
+                    </header>
+                    {{-- メインコンテンツ --}}
+                    {{ $slot }}
+                </div>
             </div>
         </main>
         {{-- フッター --}}
