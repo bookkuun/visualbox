@@ -119,7 +119,7 @@ class TaskController extends Controller
         }
 
         return redirect()
-            ->route('tasks.index', compact('project'))
+            ->route('tasks.show', compact('project', 'task'))
             ->with($flash);
     }
 

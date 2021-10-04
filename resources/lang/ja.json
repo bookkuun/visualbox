@@ -632,14 +632,18 @@
     "Task Category": "カテゴリ",
     "Due Date": "締め切り",
     "Create Cancel": "一覧に戻る",
+    "Edit Cancel": "戻る",
     "Task created successfully.": "タスクの作成に成功しました。",
     "Task updated successfully.": "タスクの更新に成功しました。",
     "Task deleted successfully.": "タスクの削除に成功しました。",
     "Task Comment": "コメント",
+    "Task Edit": "タスクの詳細",
     "Task Delete": "タスクを削除する",
     "Keyword": "キーワード",
     "Project Edit": "プロジェクトの編集",
     "Project Delete": "プロジェクトを削除する",
     "Member": "メンバー",
-    "User Authority": "権限"
+    "User Authority": "権限",
+    "Comment created successfully.": "コメントの作成に成功しました。",
+    "Comment deleted successfully.": "コメントの削除に成功しました。"
 }
