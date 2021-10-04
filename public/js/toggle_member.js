@@ -2,17 +2,17 @@ document
     .querySelector("#add_member")
     .addEventListener("click", function (event) {
         event.preventDefault();
-        const member = document.querySelector('[data="member"]');
+        const member_form = document.querySelector('[data="member_form"]');
         const project_members = document.querySelector("#project_members");
-        const new_member = member.cloneNode(true);
+        const new_member = member_form.cloneNode(true);
         new_member.classList.remove("hidden");
         new_member.classList.add("flex");
-        const user = new_member.querySelector('[data="user"]');
-        const user_authority = new_member.querySelector(
-            '[data="user_authority"]'
+        const member = new_member.querySelector('[data="member_id"]');
+        const member_authority = new_member.querySelector(
+            '[data="member_authority_id"]'
         );
-        user.name = `users[${project_members.children.length + 1}][id]`;
-        user_authority.name = `users[${
+        member.name = `users[${project_members.children.length + 1}][id]`;
+        member_authority.name = `users[${
             project_members.children.length + 1
         }][authority]`;
         project_members.appendChild(new_member);

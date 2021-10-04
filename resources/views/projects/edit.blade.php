@@ -14,7 +14,9 @@
 
     <div class="m-6">
 
-        <!-- Validation Errors -->
+
+        {{-- メッセージ --}}
+        <x-flash-message />
         <x-validation-errors :errors="$errors" />
 
         <form method="POST" action="{{ route('projects.update', ['project' => $project]) }}">
@@ -42,20 +44,20 @@
                     <h3 class="mb-2">プロジェクトメンバー</h3>
 
                     {{-- コピー元 --}}
-                    <div class="hidden mb-6" data="member">
+                    <div class="hidden mb-6" data="member_form">
                         <div class="w-1/4">
                             <x-label :value="__('Member')"
                                 class="{{ $errors->has('user_id') ? 'text-red-600' : '' }}" />
                             <x-select :options="$users"
                                 class="block mt-1 w-full {{ $errors->has('user_id') ? 'border-red-600' : '' }}"
-                                data="user" type="text" :value="old('user_id')" autofocus />
+                                data="member_id" type="text" :value="old('user_id')" autofocus />
                         </div>
                         <div class="w-1/4 ml-3">
                             <x-label :value="__('User Authority')"
                                 class="{{ $errors->has('user_authority_id') ? 'text-red-600' : '' }}" />
                             <x-select :options="$user_authorities"
                                 class="block mt-1 w-full {{ $errors->has('user_authority_id') ? 'border-red-600' : '' }}"
-                                data="user_authority" type="text" :value="old('user_authority_id')" autofocus />
+                                data="member_authority_id" type="text" :value="old('user_authority_id')" autofocus />
                         </div>
                     </div>
                     {{-- コピー元 --}}

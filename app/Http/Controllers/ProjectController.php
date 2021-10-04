@@ -60,11 +60,11 @@ class ProjectController extends Controller
             'title' => $request->title,
             'user_id' => $request->user()->id,
         ])) {
-            foreach ($request->users as $user) {
+            foreach ($request->users as $member) {
                 UserJoinProject::create([
-                    'user_id' => (int)$user['id'],
+                    'user_id' => (int)$member['id'],
                     'project_id' => $project->id,
-                    'user_authority_id' => (int)$user['authority'],
+                    'user_authority_id' => (int)$member['authority'],
                 ]);
             }
             $flash = ['success' => __('Project created successfully.')];
