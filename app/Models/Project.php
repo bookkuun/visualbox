@@ -35,4 +35,12 @@ class Project extends Model
     {
         return $this->hasMany(Task::class);
     }
+
+    /**
+     * プロジェクトに参加しているユーザー取得.
+     */
+    public function joinUsers()
+    {
+        return $this->belongsToMany(User::class, 'user_join_projects', 'project_id', 'user_id');
+    }
 }

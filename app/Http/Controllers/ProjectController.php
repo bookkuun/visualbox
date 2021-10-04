@@ -95,7 +95,17 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('projects.edit', compact('project'));
+        $users = $project->joinUsers()->get();
+
+        $user_authorities = UserAuthority::all();
+
+        $except_author_users = $project->joinUsers()
+            ->get()
+            ->where('id', '!=', $project->user->id);
+
+        $admin_id = 3;
+
+        return view('projects.edit', compact('project', 'users', 'user_authorities', 'admin_id', 'except_author_users'));
     }
 
     /**
