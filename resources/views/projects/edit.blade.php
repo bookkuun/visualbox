@@ -99,7 +99,7 @@
                                         class="{{ $errors->has('user_authority_id') ? 'text-red-600' : '' }}" />
                                     <x-select :options="$user_authorities"
                                         class="block mt-1 w-full {{ $errors->has('user_role_id') ? 'border-red-600' : '' }}"
-                                        name="users[{{ $key }}][role]" type="text"
+                                        name="users[{{ $key }}][authority]" type="text"
                                         :value="$user->getAuthorityId($project)" autofocus />
                                 </div>
                             </div>

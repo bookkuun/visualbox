@@ -95,7 +95,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        $users = $project->joinUsers()->get();
+        $users = User::all();
 
         $user_authorities = UserAuthority::all();
 
@@ -117,14 +117,33 @@ class ProjectController extends Controller
      */
     public function update(ProjectRequest $request, Project $project)
     {
-        if ($project->update($request->all())) {
+        if (Project::find($project->id)->update([
+            'title' => $request->input('title')
+        ])) {
+            foreach ($request->users as $member) {
+                $user = User::find((int)$member['id']);
+                if ($user->getAuthorityId($project)) {
+                    UserJoinProject::where('user_id', (int)$member['id'])
+                        ->where('project_id', $project->id)
+                        ->update([
+                            'user_authority_id' => (int)$member['authority'],
+                        ]);
+                } else {
+                    UserJoinProject::create([
+                        'user_id' => (int)$member['id'],
+                        'project_id' => $project->id,
+                        'user_authority_id' => (int)$member['authority'],
+                    ]);
+                }
+            }
+
             $flash = ['success' => __('Project updated successfully.')];
         } else {
             $flash = ['error' => __('Failed to update the project.')];
         }
 
         return redirect()
-            ->route('projects.index', $project)
+            ->route('projects.edit', $project)
             ->with($flash);
     }
 

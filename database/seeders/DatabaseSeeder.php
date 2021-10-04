@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
         $this->call(TaskStatus::class);
         $this->call(UserAuthority::class);
 
-        User::factory(10)->create()->each(function ($user) {
-            Project::factory(5)->create(['user_id' => $user->id]);
-            // ↑$user->idの->id部分は省略可能
-        });
+        // User::factory(10)->create()->each(function ($user) {
+        //     Project::factory(5)->create(['user_id' => $user->id]);
+        //     // ↑$user->idの->id部分は省略可能
+        // });
     }
 }
