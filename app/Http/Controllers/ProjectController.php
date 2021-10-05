@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
 use App\Models\User;
+use App\Models\UserAuthority;
+use App\Models\UserJoinProject;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -37,7 +39,13 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('projects.create');
+        $users = User::all();
+
+        $user_authorities = UserAuthority::all();
+
+        $admin_id = 3;
+
+        return view('projects.create', compact('users', 'user_authorities', 'admin_id'));
     }
 
     /**
@@ -48,10 +56,17 @@ class ProjectController extends Controller
      */
     public function store(ProjectRequest $request)
     {
-        if (Project::create([
+        if ($project = Project::create([
             'title' => $request->title,
             'user_id' => $request->user()->id,
         ])) {
+            foreach ($request->users as $member) {
+                UserJoinProject::create([
+                    'user_id' => (int)$member['id'],
+                    'project_id' => $project->id,
+                    'user_authority_id' => (int)$member['authority'],
+                ]);
+            }
             $flash = ['success' => __('Project created successfully.')];
         } else {
             $flash = ['error' => __('Failed to create the project.')];
@@ -80,7 +95,17 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('projects.edit', compact('project'));
+        $users = User::all();
+
+        $user_authorities = UserAuthority::all();
+
+        $except_author_users = $project->joinUsers()
+            ->get()
+            ->where('id', '!=', $project->user->id);
+
+        $admin_id = 3;
+
+        return view('projects.edit', compact('project', 'users', 'user_authorities', 'admin_id', 'except_author_users'));
     }
 
     /**
@@ -92,14 +117,33 @@ class ProjectController extends Controller
      */
     public function update(ProjectRequest $request, Project $project)
     {
-        if ($project->update($request->all())) {
+        if (Project::find($project->id)->update([
+            'title' => $request->input('title')
+        ])) {
+            foreach ($request->users as $member) {
+                $user = User::find((int)$member['id']);
+                if ($user->getAuthorityId($project)) {
+                    UserJoinProject::where('user_id', (int)$member['id'])
+                        ->where('project_id', $project->id)
+                        ->update([
+                            'user_authority_id' => (int)$member['authority'],
+                        ]);
+                } else {
+                    UserJoinProject::create([
+                        'user_id' => (int)$member['id'],
+                        'project_id' => $project->id,
+                        'user_authority_id' => (int)$member['authority'],
+                    ]);
+                }
+            }
+
             $flash = ['success' => __('Project updated successfully.')];
         } else {
             $flash = ['error' => __('Failed to update the project.')];
         }
 
         return redirect()
-            ->route('projects.index', $project)
+            ->route('projects.edit', $project)
             ->with($flash);
     }
 

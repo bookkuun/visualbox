@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Project;
 use App\Models\User;
-use Database\Seeders\User as SeedersUser;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,11 +19,11 @@ class DatabaseSeeder extends Seeder
         $this->call(TaskKind::class);
         $this->call(TaskResolution::class);
         $this->call(TaskStatus::class);
-        $this->call(SeedersUser::class);
+        $this->call(UserAuthority::class);
 
-        User::factory(10)->create()->each(function ($user) {
-            Project::factory(5)->create(['user_id' => $user->id]);
-            // ↑$user->idの->id部分は省略可能
-        });
+        // User::factory(10)->create()->each(function ($user) {
+        //     Project::factory(5)->create(['user_id' => $user->id]);
+        //     // ↑$user->idの->id部分は省略可能
+        // });
     }
 }

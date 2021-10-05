@@ -19,30 +19,32 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class=" bg-gray-100">
+    <div>
         @include('layouts.navigation')
 
-        <main class="md:flex">
-            <div class="w-1/5 h-auto bg-gray-600 text-white text-xl font-semibold">
-                {{-- サイドメニュー --}}
-                {{ $sidemenu }}
-            </div>
-            <div class="w-4/5">
-                <!-- メインヘッダー -->
-                <header class="bg-gray-600 text-white font-semibold text-xl shadow">
-                    <div class="max-w-7xl py-6 px-6">
-                        {{ $header }}
-                    </div>
-                </header>
-                {{-- メインコンテンツ --}}
-                {{ $slot }}
+        <main>
+            {{-- サイドメニュー --}}
+            <div class="flex flex-wrap w-full h-screen bg-gray-100">
+                <div class="w-1/6 bg-gray-800 text-white p-3 shadow-lg">
+                    {{ $sidemenu }}
+                </div>
+                <div class="w-5/6">
+                    <!-- メインヘッダー -->
+                    <header class="bg-gray-800 text-white font-semibold text-xl shadow">
+                        <div class="max-w-7xl py-6 px-6">
+                            {{ $header }}
+                        </div>
+                    </header>
+                    {{-- メインコンテンツ --}}
+                    {{ $slot }}
+                </div>
             </div>
         </main>
         {{-- フッター --}}
-        <footer class="bg-gray-600 text-white text-2xl text-center h-auto p-20">
-            <small>©2021 visualbox</small>
-        </footer>
+        <footer></footer>
     </div>
+    {{-- JS --}}
+    @yield('script')
 </body>
 
 </html>
