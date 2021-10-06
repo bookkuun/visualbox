@@ -10,6 +10,7 @@ use App\Models\TaskKind;
 use App\Models\TaskStatus;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
@@ -20,9 +21,25 @@ class TaskController extends Controller
      */
     public function index(Request $request, Project $project)
     {
-        $tasks = $project->tasks;
+        $request->validate([
+            'keyword' => 'max:255',
+        ]);
 
-        return view('tasks.index', compact('project', 'tasks'));
+        $keyword = $request->input('keyword');
+
+        if ($request->has('keyword') && $keyword != '') {
+            $tasks = Task::select('tasks.*')
+                ->join('projects', 'tasks.project_id', 'projects.id')
+                ->where('project_id', '=', $project->id)
+                ->where('name', 'like', '%' . $keyword . '%')
+                ->paginate(20);
+        } else {
+            $tasks = Task::select('tasks.*')
+                ->join('projects', 'tasks.project_id', 'projects.id')
+                ->where('project_id', '=', $project->id)->paginate(20);
+        }
+
+        return view('tasks.index', compact('project', 'tasks', 'keyword'));
     }
 
     /**

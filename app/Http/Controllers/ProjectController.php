@@ -37,10 +37,11 @@ class ProjectController extends Controller
         ]);
 
         $keyword = $request->input('keyword');
-        $projects = Project::paginate(20);
 
         if ($request->has('keyword') && $keyword != '') {
             $projects = Project::where('title', 'like', '%' . $keyword . '%')->paginate(20);
+        } else {
+            $projects = Project::paginate(20);
         }
 
         return view('projects.index', compact('projects', 'keyword'));

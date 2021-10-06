@@ -13,11 +13,32 @@
     <x-validation-errors :errors="$errors" />
 
     <div class="m-6">
+
         <div class="text-xl mb-6">
             <h3>{{ __('Tasks') }}</h3>
         </div>
 
-        {{-- 検索フォーム予定 --}}
+        <!-- 検索フォーム -->
+        <form method="GET" action="{{ route('tasks.index', ['project' => $project->id]) }}">
+            <div class="flex">
+                <div class="w-1/3 px-3 mb-6 mr-3">
+                    <x-label for="keyword" :value="__('Keyword')"
+                        class="{{ $errors->has('keyword') ? 'text-red-600' : '' }}" />
+                    <x-input id="keyword"
+                        class="block mt-1 w-full {{ $errors->has('keyword') ? 'border-red-600' : '' }}" type="text"
+                        name="keyword" :value="$keyword" :placeholder="__('Keyword')" autofocus />
+                </div>
+                <div class="flex flex-wrap content-center">
+                    <x-button class="px-10">
+                        {{ __('Search') }}
+                    </x-button>
+                </div>
+            </div>
+        </form>
+
+        <div class="flex justify-start my-6">
+            {{ $tasks->appends(request()->input())->links() }}
+        </div>
 
         @if (0 < $tasks->count())
             <div class="bg-white rounded">
@@ -72,5 +93,9 @@
                 タスクの登録はありません。
             </div>
         @endif
+        <div class="flex justify-start my-6">
+            {{ $tasks->appends(request()->input())->links() }}
+        </div>
+    </div>
 
 </x-app-layout>
