@@ -24,7 +24,7 @@
 
         <main>
             {{-- サイドメニュー --}}
-            <div class="flex flex-wrap w-full h-screen bg-gray-100">
+            <div class="flex flex-wrap w-full h-full bg-gray-100">
                 <div class="w-1/6 bg-gray-800 text-white p-3 shadow-lg">
                     {{ $sidemenu }}
                 </div>
@@ -41,9 +41,11 @@
             </div>
         </main>
         {{-- フッター --}}
-        <footer></footer>
+        <footer class="h-64 text-white bg-gray-800 flex justify-center items-center">
+            <small>&copy; VusualBox 2021</small>
+        </footer>
+        {{-- JS --}}
     </div>
-    {{-- JS --}}
     @yield('script')
 </body>
 
