@@ -8,9 +8,23 @@ use App\Models\User;
 use App\Models\UserAuthority;
 use App\Models\UserJoinProject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
+
+    public function dashboard()
+    {
+        $user = Auth::user();
+
+        $not_processed_tasks  = $user->myTasks->where('task_status_id', 1)->sortBy('due_date');
+        $processing_tasks  = $user->myTasks->where('task_status_id', 2)->sortBy('due_date');
+        $processed_tasks  = $user->myTasks->where('task_status_id', 3)->sortBy('due_date');
+        $closed_tasks  = $user->myTasks->where('task_status_id', 4)->sortBy('due_date');
+
+        return view('dashboard', compact('not_processed_tasks', 'processing_tasks', 'processed_tasks', 'closed_tasks'));
+    }
+
     /**
      * Display a listing of the resource.
      *

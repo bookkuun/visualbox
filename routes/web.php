@@ -15,9 +15,7 @@ Route::middleware('guest')->group(function () {
 require __DIR__ . '/auth.php';
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('dashboard', [ProjectController::class, 'dashboard'])->name('dashboard');
     Route::resource('projects', ProjectController::class);
     Route::delete('projects/{project}/users/{user}', [UserJoinProjectController::class, 'destroy']);
     Route::resource('projects/{project}/tasks', TaskController::class);

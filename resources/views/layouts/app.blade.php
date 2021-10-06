@@ -19,30 +19,35 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div>
+    {{-- ヘッダー --}}
+    <header>
         @include('layouts.navigation')
-
-        <main>
+    </header>
+    <main class="
+        h-full">
+        {{-- メインコンテンツ --}}
+        <div class="flex flex-wrap w-full h-full bg-gray-100">
             {{-- サイドメニュー --}}
-            <div class="flex flex-wrap w-full h-screen bg-gray-100">
-                <div class="w-1/6 bg-gray-800 text-white p-3 shadow-lg">
-                    {{ $sidemenu }}
-                </div>
-                <div class="w-5/6">
-                    <!-- メインヘッダー -->
-                    <header class="bg-gray-800 text-white font-semibold text-xl shadow">
-                        <div class="max-w-7xl py-6 px-6">
-                            {{ $header }}
-                        </div>
-                    </header>
-                    {{-- メインコンテンツ --}}
-                    {{ $slot }}
-                </div>
+            <div class="min-h-screen w-1/6 bg-gray-800 text-white p-3 shadow-lg">
+                {{ $sidemenu }}
             </div>
-        </main>
-        {{-- フッター --}}
-        <footer></footer>
-    </div>
+            <div class="w-5/6">
+                <!-- メインヘッダー -->
+                <header class="bg-gray-800 text-white font-semibold text-xl shadow">
+                    <div class="max-w-7xl py-6 px-6">
+                        {{ $header }}
+                    </div>
+                </header>
+                {{-- コンテンツ --}}
+                {{ $slot }}
+            </div>
+        </div>
+    </main>
+    {{-- フッター --}}
+    <footer class="
+                        h-64 text-white bg-gray-800 flex justify-center items-center">
+        <small>&copy; VusualBox 2021</small>
+    </footer>
     {{-- JS --}}
     @yield('script')
 </body>

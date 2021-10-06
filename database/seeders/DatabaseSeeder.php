@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Project;
-use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TaskResolution::class);
         $this->call(TaskStatus::class);
         $this->call(UserAuthority::class);
+        $this->call(User::class);
 
         // User::factory(10)->create()->each(function ($user) {
         //     Project::factory(5)->create(['user_id' => $user->id]);
