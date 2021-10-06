@@ -1,5 +1,6 @@
 @section('script')
     <script src="{{ asset('js/toggle_member.js') }}" defer></script>
+    <script src="{{ asset('js/exit_project.js') }}" defer></script>
 @endsection
 
 <x-app-layout>
@@ -84,7 +85,7 @@
 
                     <div id="project_members">
                         @foreach ($except_author_users as $key => $user)
-                            <div class="flex mb-6">
+                            <div id="join_member_{{ $user->id }}" class="flex mb-6">
                                 <div class="w-1/4">
                                     <x-label :value="__('Member')"
                                         class="{{ $errors->has('user_id') ? 'text-red-600' : '' }}" />
@@ -103,6 +104,13 @@
                                         class="block mt-1 w-full {{ $errors->has('user_role_id') ? 'border-red-600' : '' }}"
                                         name="users[{{ $key }}][authority]" type="text"
                                         :value="$user->getAuthorityId($project)" autofocus />
+                                </div>
+
+                                <div class="w-1/4 mx-3 flex mt-6">
+                                    <div id="{{ $user->id }}" data="project_join_member"
+                                        class="rounded-full flex items-center shadow bg-red-500 px-4 py-2 text-white hover:bg-red-400 cursor-pointer">
+                                        削除
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
