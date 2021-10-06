@@ -31,6 +31,10 @@
             </div>
         </form>
 
+        <div class="flex justify-start my-6">
+            {{ $projects->links() }}
+        </div>
+
         @if (0 < $projects->count())
             <div class="bg-white rounded">
                 <table class="min-w-max w-full table-auto">
@@ -74,7 +78,7 @@
                 プロジェクトの登録はありません。
             </div>
         @endif
-        <div class="flex justify-center mb-6">
+        <div class="flex justify-start my-6">
             {{ $projects->links() }}
         </div>
     </div>
