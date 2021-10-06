@@ -32,11 +32,14 @@ class TaskController extends Controller
                 ->join('projects', 'tasks.project_id', 'projects.id')
                 ->where('project_id', '=', $project->id)
                 ->where('name', 'like', '%' . $keyword . '%')
+                ->latest()
                 ->paginate(20);
         } else {
             $tasks = Task::select('tasks.*')
                 ->join('projects', 'tasks.project_id', 'projects.id')
-                ->where('project_id', '=', $project->id)->paginate(20);
+                ->where('project_id', '=', $project->id)
+                ->latest()
+                ->paginate(20);
         }
 
         return view('tasks.index', compact('project', 'tasks', 'keyword'));
