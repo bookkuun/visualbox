@@ -18,18 +18,26 @@
                     <h3>未対応</h3>
                 </div>
                 <ul>
-                    <li>
-                        <div class="border border-gray-900 m-3 text-xs">
-                            <div class="bg-red-100 p-1">プロジェクト名</div>
-                            <div class="p-1">
-
-                                <div>タスク名</div>
-                                <div>タスクの種類</div>
-                                <div>カテゴリ</div>
-                                <div>締め切り日</div>
-                            </div>
-                        </div>
-                    </li>
+                    @foreach ($not_processed_tasks as $task)
+                        <li>
+                            <a
+                                href="{{ route('tasks.edit', ['project' => $task->project->id, 'task' => $task->id]) }}">
+                                <div class="border border-gray-900 m-3 text-xs hover:bg-gray-200">
+                                    <div class="bg-red-100 p-1">{{ $task->project->title }}</div>
+                                    <div class="p-1">
+                                        <div>タスク名：{{ $task->name }}</div>
+                                        <div>種類：{{ $task->task_kind->name }}</div>
+                                        <div>
+                                            カテゴリ：{{ $task->task_category ? $task->task_category->name : '' }}
+                                        </div>
+                                        <div>
+                                            締め切り：{{ $task->due_date ? $task->due_date->format('Y/m/d') : '' }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
             <div class="flex-1 bg-white mx-2">
@@ -38,17 +46,26 @@
                     <h3>処理中</h3>
                 </div>
                 <ul>
-                    <li>
-                        <div class="border border-gray-900 m-3 text-xs">
-                            <div class="bg-blue-100 p-1">プロジェクト名</div>
-                            <div class="p-1">
-                                <div>タスク名</div>
-                                <div>タスクの種類</div>
-                                <div>カテゴリ</div>
-                                <div>締め切り日</div>
-                            </div>
-                        </div>
-                    </li>
+                    @foreach ($processing_tasks as $task)
+                        <li>
+                            <a
+                                href="{{ route('tasks.edit', ['project' => $task->project->id, 'task' => $task->id]) }}">
+                                <div class="border border-gray-900 m-3 text-xs hover:bg-gray-200">
+                                    <div class="bg-blue-100 p-1">{{ $task->project->title }}</div>
+                                    <div class="p-1">
+                                        <div>タスク名：{{ $task->name }}</div>
+                                        <div>種類：{{ $task->task_kind->name }}</div>
+                                        <div>
+                                            カテゴリ：{{ $task->task_category ? $task->task_category->name : '' }}
+                                        </div>
+                                        <div>
+                                            締め切り：{{ $task->due_date ? $task->due_date->format('Y/m/d') : '' }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
             <div class="flex-1 bg-white mx-2">
@@ -57,18 +74,26 @@
                     <h3>処理済み</h3>
                 </div>
                 <ul>
-                    <li>
-                        <div class="border border-gray-900 m-3 text-xs">
-                            <div class="bg-green-100 p-1">プロジェクト名</div>
-                            <div class="p-1">
-
-                                <div>タスク名</div>
-                                <div>タスクの種類</div>
-                                <div>カテゴリ</div>
-                                <div>締め切り日</div>
-                            </div>
-                        </div>
-                    </li>
+                    @foreach ($processed_tasks as $task)
+                        <li>
+                            <a
+                                href="{{ route('tasks.edit', ['project' => $task->project->id, 'task' => $task->id]) }}">
+                                <div class="border border-gray-900 m-3 text-xs hover:bg-gray-200">
+                                    <div class="bg-green-100 p-1">{{ $task->project->title }}</div>
+                                    <div class="p-1">
+                                        <div>タスク名：{{ $task->name }}</div>
+                                        <div>種類：{{ $task->task_kind->name }}</div>
+                                        <div>
+                                            カテゴリ：{{ $task->task_category ? $task->task_category->name : '' }}
+                                        </div>
+                                        <div>
+                                            締め切り：{{ $task->due_date ? $task->due_date->format('Y/m/d') : '' }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
             <div class="flex-1 bg-white mx-2">
@@ -77,18 +102,26 @@
                     <h3>完了</h3>
                 </div>
                 <ul>
-                    <li>
-                        <div class="border border-gray-900 m-3 text-xs">
-                            <div class="bg-green-400 p-1">プロジェクト名</div>
-                            <div class="p-1">
-
-                                <div>タスク名</div>
-                                <div>タスクの種類</div>
-                                <div>カテゴリ</div>
-                                <div>締め切り日</div>
-                            </div>
-                        </div>
-                    </li>
+                    @foreach ($closed_tasks as $task)
+                        <li>
+                            <a
+                                href="{{ route('tasks.edit', ['project' => $task->project->id, 'task' => $task->id]) }}">
+                                <div class="border border-gray-900 m-3 text-xs hover:bg-gray-200">
+                                    <div class="bg-green-400 p-1">{{ $task->project->title }}</div>
+                                    <div class="p-1">
+                                        <div>タスク名：{{ $task->name }}</div>
+                                        <div>種類：{{ $task->task_kind->name }}</div>
+                                        <div>
+                                            カテゴリ：{{ $task->task_category ? $task->task_category->name : '' }}
+                                        </div>
+                                        <div>
+                                            締め切り：{{ $task->due_date ? $task->due_date->format('Y/m/d') : '' }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
 
