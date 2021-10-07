@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
+use App\Models\TaskStatus;
 use App\Models\User;
 use App\Models\UserAuthority;
 use App\Models\UserJoinProject;
@@ -17,10 +18,10 @@ class ProjectController extends Controller
     {
         $user = Auth::user();
 
-        $not_processed_tasks  = $user->myTasks->where('task_status_id', 1)->sortBy('due_date');
-        $processing_tasks  = $user->myTasks->where('task_status_id', 2)->sortBy('due_date');
-        $processed_tasks  = $user->myTasks->where('task_status_id', 3)->sortBy('due_date');
-        $closed_tasks  = $user->myTasks->where('task_status_id', 4)->sortBy('due_date');
+        $not_processed_tasks  = $user->myTasks->where('task_status_id', TaskStatus::NOT_PROCESSED)->sortBy('due_date');
+        $processing_tasks  = $user->myTasks->where('task_status_id', TaskStatus::PROCESSING)->sortBy('due_date');
+        $processed_tasks  = $user->myTasks->where('task_status_id', TaskStatus::PROCESSED)->sortBy('due_date');
+        $closed_tasks  = $user->myTasks->where('task_status_id', TaskStatus::CLOSED)->sortBy('due_date');
 
         return view('dashboard', compact('not_processed_tasks', 'processing_tasks', 'processed_tasks', 'closed_tasks'));
     }
