@@ -102,24 +102,14 @@
             </div>
         </form>
 
-        <form name="deleteform" method="POST"
-            action="{{ route('tasks.destroy', ['project' => $project->id, 'task' => $task]) }}">
-            @csrf
-            @method('DELETE')
-
-            <!-- Navigation -->
-            <div class="flex justify-start my-6">
-                <x-button id="delete-task-modal"
-                    class=" bg-red-600 text-white hover:bg-red-700 active:bg-red-900
-                    focus:border-red-900 ring-red-300"
-                    onclick="return confirm('本当に削除しますか？')">
-                    {{ __('Task Delete') }}
-                </x-button>
+        @if (count($task_comments) > 0)
+            <div class="mt-6">
+                {{ __('Task Comment') }}
             </div>
-        </form>
+        @endif
 
         @foreach ($task_comments as $comment)
-            <div class="flex justify-between rounded-md bg-white my-5">
+            <div class="flex justify-between rounded-md bg-white mb-5">
                 <div class="flex flex-row w-full">
                     <div class="pl-2 w-full">
                         <div class="flex justify-between">
@@ -150,6 +140,24 @@
                 </div>
             </div>
         @endforeach
+
+        <form name="deleteform" method="POST"
+            action="{{ route('tasks.destroy', ['project' => $project->id, 'task' => $task]) }}">
+            @csrf
+            @method('DELETE')
+
+            <!-- Navigation -->
+            <div class="flex justify-start my-6">
+                <x-button id="delete-task-modal"
+                    class=" bg-red-600 text-white hover:bg-red-700 active:bg-red-900
+                    focus:border-red-900 ring-red-300"
+                    onclick="return confirm('本当に削除しますか？')">
+                    {{ __('Task Delete') }}
+                </x-button>
+            </div>
+        </form>
+
+
     </div>
 
 </x-app-layout>

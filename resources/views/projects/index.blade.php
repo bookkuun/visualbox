@@ -32,7 +32,7 @@
         </form>
 
         <div class="flex justify-start my-6">
-            {{ $projects->links() }}
+            {{ $projects->appends(request()->input())->links() }}
         </div>
 
         @if (0 < $projects->count())
@@ -79,7 +79,7 @@
             </div>
         @endif
         <div class="flex justify-start my-6">
-            {{ $projects->links() }}
+            {{ $projects->appends(request()->input())->links() }}
         </div>
     </div>
 
