@@ -40,7 +40,6 @@ class TaskTest extends TestCase
             ->has(TaskComment::factory()->count(3), 'task_comments')
             ->create();
 
-
         $this->assertInstanceOf(Collection::class, $task->task_comments);
     }
 
@@ -48,6 +47,7 @@ class TaskTest extends TestCase
     public function タスク種別のリレーションを返す()
     {
         $task = Task::factory()->create();
+
         $this->assertInstanceOf(TaskKind::class, $task->task_kind);
     }
 
@@ -55,6 +55,7 @@ class TaskTest extends TestCase
     public function タスク状態のリレーションを返す()
     {
         $task = Task::factory()->create();
+
         $this->assertInstanceOf(TaskStatus::class, $task->task_status);
     }
 
@@ -62,6 +63,7 @@ class TaskTest extends TestCase
     public function タスクカテゴリのリレーションを返す()
     {
         $task = Task::factory()->create();
+
         $this->assertInstanceOf(TaskCategory::class, $task->task_category);
     }
 
@@ -69,6 +71,7 @@ class TaskTest extends TestCase
     public function タスク担当者のリレーションを返す()
     {
         $task = Task::factory()->create();
+
         $this->assertInstanceOf(User::class, $task->assigner);
     }
 }

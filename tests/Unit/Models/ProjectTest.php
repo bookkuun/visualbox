@@ -17,6 +17,7 @@ class ProjectTest extends TestCase
     public function ユーザーのリレーションを返す()
     {
         $project = Project::factory()->create();
+
         $this->assertInstanceOf(User::class, $project->user);
     }
 
@@ -34,6 +35,7 @@ class ProjectTest extends TestCase
     public function 参加ユーザーのリレーションを返す()
     {
         $project = Project::factory()->create();
+
         $this->assertInstanceOf(Collection::class, $project->joinUsers);
     }
 }
