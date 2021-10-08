@@ -3,10 +3,10 @@
 namespace Tests\Unit\Models;
 
 use App\Models\Project;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 use Tests\TestCase;
 
 class ProjectTest extends TestCase
@@ -17,23 +17,23 @@ class ProjectTest extends TestCase
     public function ユーザーのリレーションを返す()
     {
         $project = Project::factory()->create();
-
         $this->assertInstanceOf(User::class, $project->user);
     }
 
     /** @test tasks */
     public function タスクのリレーションを返す()
     {
-        $project = Project::factory()->create();
+        $project = Project::factory()
+            ->has(Task::factory()->count(3))
+            ->create();
 
         $this->assertInstanceOf(Collection::class, $project->tasks);
     }
 
-    /** @test tasks */
+    /** @test joinUsers */
     public function 参加ユーザーのリレーションを返す()
     {
         $project = Project::factory()->create();
-
         $this->assertInstanceOf(Collection::class, $project->joinUsers);
     }
 }

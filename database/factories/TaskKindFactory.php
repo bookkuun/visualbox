@@ -22,7 +22,8 @@ class TaskKindFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => 'タスク',
+            'display_order' => 1,
         ];
     }
 }

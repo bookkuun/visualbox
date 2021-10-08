@@ -30,7 +30,6 @@ class TaskRequest extends FormRequest
             'task_status_id' => ['required', 'integer'],
             'assigner_id' => ['nullable', 'integer'],
             'task_category_id' => ['nullable', 'integer'],
-            'task_resolution_id' => ['nullable', 'integer'],
             'due_date' => ['nullable', 'date']
         ];
     }

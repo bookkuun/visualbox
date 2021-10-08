@@ -37,14 +37,6 @@ class CreateTasksTable extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('task_resolutions', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->integer('display_order');
-            $table->timestamps();
-            $table->softDeletes();
-        });
-
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id')->constrained('projects');
@@ -57,7 +49,6 @@ class CreateTasksTable extends Migration
             $table->foreignId('assigner_id')->nullable()->constrained('users');
             $table->foreignId('task_category_id')->nullable()->constrained('task_categories');
             $table->date('due_date')->nullable();
-            $table->foreignId('task_resolution_id')->nullable()->constrained('task_resolutions');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -74,6 +65,5 @@ class CreateTasksTable extends Migration
         Schema::dropIfExists('task_kinds');
         Schema::dropIfExists('task_statuses');
         Schema::dropIfExists('task_categories');
-        Schema::dropIfExists('task_resolutions');
     }
 }

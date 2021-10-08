@@ -22,7 +22,8 @@ class TaskStatusFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => '未対応',
+            'display_order' => 1,
         ];
     }
 }
