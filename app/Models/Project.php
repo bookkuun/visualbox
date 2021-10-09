@@ -45,6 +45,9 @@ class Project extends Model
         return $this->belongsToMany(User::class, 'user_join_projects', 'project_id', 'user_id');
     }
 
+    /**
+     * プロジェクトとプロジェクト参加メンバーを作成
+     */
     public static function createProjectWithMembers($owner, $title, $members)
     {
         DB::beginTransaction();
@@ -67,6 +70,9 @@ class Project extends Model
         return $project;
     }
 
+    /**
+     * プロジェクトとプロジェクト参加メンバーの更新
+     */
     public function updateProjectWithMembers($title, $members)
     {
         DB::beginTransaction();

@@ -16,11 +16,17 @@ class TaskComment extends Model
         'user_id',
     ];
 
+    /**
+     * コメントのユーザーを取得
+     */
     public function user()
     {
         return $this->belongsTo(User::class)->withDefault();
     }
 
+    /**
+     * コメントを作成する
+     */
     public static function createComment($owner, $task, $comment)
     {
         DB::beginTransaction();
