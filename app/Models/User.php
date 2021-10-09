@@ -75,7 +75,7 @@ class User extends Authenticatable
     }
 
     /**
-     * ユーザーがプロジェクトにどのような権限があるか取得
+     * ユーザーがプロジェクトにどのような権限があるかを取得
      */
     public function getAuthorityId($project)
     {
@@ -84,7 +84,7 @@ class User extends Authenticatable
         if ($record) {
             return $record['user_authority_id'];
         } else {
-            return false;
+            return null;
         }
     }
 }

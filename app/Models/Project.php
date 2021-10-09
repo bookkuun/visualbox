@@ -71,7 +71,7 @@ class Project extends Model
     }
 
     /**
-     * プロジェクトとプロジェクト参加メンバーの更新
+     * プロジェクトとプロジェクト参加メンバーを更新
      */
     public function updateProjectWithMembers($title, $members)
     {
