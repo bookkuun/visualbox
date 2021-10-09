@@ -45,7 +45,7 @@ class Project extends Model
         return $this->belongsToMany(User::class, 'user_join_projects', 'project_id', 'user_id');
     }
 
-    public static function createProjectWithMembers($title, $user_id, $users)
+    public static function createProjectWithMembers($title, $user_id, $members)
     {
         DB::beginTransaction();
 
@@ -55,7 +55,7 @@ class Project extends Model
                 'user_id' => $user_id,
             ]);
 
-            foreach ($users as $member) {
+            foreach ($members as $member) {
                 UserJoinProject::createJoinGroup($member, $project);
             }
 
@@ -67,7 +67,7 @@ class Project extends Model
         return $project;
     }
 
-    public function updateProjectWithMembers($title, $users)
+    public function updateProjectWithMembers($title, $members)
     {
         DB::beginTransaction();
 
@@ -76,7 +76,7 @@ class Project extends Model
                 'title' =>  $title
             ]);
 
-            foreach ($users as $member) {
+            foreach ($members as $member) {
                 $user = User::find((int)$member['id']);
                 if ($user->getAuthorityId($this)) {
                     UserJoinProject::where('user_id', (int)$member['id'])
