@@ -74,13 +74,13 @@
                             <x-label for="user_authority_id" :value="__('User Authority')" />
                             <x-select :disabled=true :options="$user_authorities"
                                 class="user_authority_id block mt-1 w-full {{ $errors->has('user_authority_id') ? 'border-red-600' : '' }}"
-                                name="users[0][authority]" :value=$admin_id />
+                                name="users[0][authority]" :value=$project_admin_id />
                         </div>
 
                         <input class="hidden" type="text" name="users[0][id]"
                             value="{{ $project->user->id }}">
                         <input class="hidden" type="text" name="users[0][authority]"
-                            value="{{ $admin_id }}">
+                            value="{{ $project_admin_id }}">
                     </div>
 
                     <div id="project_members">

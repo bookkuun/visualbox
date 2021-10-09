@@ -46,9 +46,9 @@ class ProjectController extends Controller
     {
         $users = User::all();
         $user_authorities = UserAuthority::all();
-        $admin_id = UserAuthority::PROJECT_ADMIN;
+        $project_admin_id = UserAuthority::PROJECT_ADMIN;
 
-        return view('projects.create', compact('users', 'user_authorities', 'admin_id'));
+        return view('projects.create', compact('users', 'user_authorities', 'project_admin_id'));
     }
 
     public function store(ProjectRequest $request)
@@ -75,10 +75,10 @@ class ProjectController extends Controller
     {
         $users = User::all();
         $user_authorities = UserAuthority::all();
+        $project_admin_id = UserAuthority::PROJECT_ADMIN;
         $project_join_users = $project->joinUsers->where('id', '!=', $project->user->id);
-        $admin_id = UserAuthority::PROJECT_ADMIN;
 
-        return view('projects.edit', compact('project', 'users', 'user_authorities', 'admin_id', 'project_join_users'));
+        return view('projects.edit', compact('project', 'users', 'user_authorities', 'project_admin_id', 'project_join_users'));
     }
 
     public function update(ProjectRequest $request, Project $project)
