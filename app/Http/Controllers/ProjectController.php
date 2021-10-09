@@ -77,14 +77,14 @@ class ProjectController extends Controller
         $users = User::all();
         $user_authorities = UserAuthority::all();
         $project_admin_id = UserAuthority::PROJECT_ADMIN;
-        $project_join_users = $project->joinUsers->where('id', '!=', $project->user->id);
+        $project_join_members = $project->joinUsers->where('id', '!=', $project->user->id);
 
-        return view('projects.edit', compact('project', 'users', 'user_authorities', 'project_admin_id', 'project_join_users'));
+        return view('projects.edit', compact('project', 'users', 'user_authorities', 'project_admin_id', 'project_join_members'));
     }
 
     public function update(ProjectRequest $request, Project $project)
     {
-        $project->updateProjectWithMembers($request->input('title'), $request->users);
+        $project->updateProjectWithMembers($request->input('title'), $request->input('users'));
 
         if ($project) {
             $flash = ['success' => __('Project updated successfully.')];
