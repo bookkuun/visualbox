@@ -84,7 +84,7 @@
                     </div>
 
                     <div id="project_members">
-                        @foreach ($except_author_users as $key => $user)
+                        @foreach ($project_join_users as $key => $user)
                             <div id="join_member_{{ $user->id }}" class="flex mb-6">
                                 <div class="w-1/4">
                                     <x-label :value="__('Member')"

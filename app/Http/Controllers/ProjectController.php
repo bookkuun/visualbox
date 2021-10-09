@@ -17,7 +17,6 @@ class ProjectController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
-
         $not_processed_tasks  = $user->myTasks->where('task_status_id', TaskStatus::NOT_PROCESSED)->sortBy('due_date');
         $processing_tasks  = $user->myTasks->where('task_status_id', TaskStatus::PROCESSING)->sortBy('due_date');
         $processed_tasks  = $user->myTasks->where('task_status_id', TaskStatus::PROCESSED)->sortBy('due_date');
@@ -54,7 +53,7 @@ class ProjectController extends Controller
 
     public function store(ProjectRequest $request)
     {
-        $project = Project::createProjectWithMembers($request->title, $request->user()->id, $request->users);
+        $project = Project::createProjectWithMembers($request->input('title'), Auth::id(), $request->input('users'));
 
         if ($project) {
             $flash = ['success' => __('Project created successfully.')];
@@ -76,16 +75,11 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $users = User::all();
-
         $user_authorities = UserAuthority::all();
+        $project_join_users = $project->joinUsers->where('id', '!=', $project->user->id);
+        $admin_id = UserAuthority::PROJECT_ADMIN;
 
-        $except_author_users = $project->joinUsers()
-            ->get()
-            ->where('id', '!=', $project->user->id);
-
-        $admin_id = 3;
-
-        return view('projects.edit', compact('project', 'users', 'user_authorities', 'admin_id', 'except_author_users'));
+        return view('projects.edit', compact('project', 'users', 'user_authorities', 'admin_id', 'project_join_users'));
     }
 
     public function update(ProjectRequest $request, Project $project)
@@ -103,12 +97,6 @@ class ProjectController extends Controller
             ->with($flash);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Project $project)
     {
         if ($project->delete()) {
