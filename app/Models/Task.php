@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Task extends Model
 {
@@ -89,5 +90,31 @@ class Task extends Model
     public function assigner()
     {
         return $this->belongsTo(User::class, 'assigner_id');
+    }
+
+    /**
+     * タスクを作成する
+     */
+    public static function createTask($project, $request)
+    {
+        DB::beginTransaction();
+        try {
+            $task = Task::create([
+                'project_id' => $project->id,
+                'task_kind_id' => $request->task_kind_id,
+                'name' => $request->name,
+                'detail' => $request->detail,
+                'task_status_id' => $request->task_status_id,
+                'assigner_id' => $request->assigner_id,
+                'task_category_id' => $request->task_category_id,
+                'due_date' => $request->due_date,
+                'created_user_id' => $request->user()->id,
+            ]);
+            DB::commit();
+        } catch (\Throwable $error) {
+            DB::rollBack();
+            $task = null;
+        }
+        return $task;
     }
 }

@@ -57,24 +57,8 @@ class TaskController extends Controller
 
     public function store(TaskRequest $request, Project $project)
     {
-        DB::beginTransaction();
-        try {
-            $task = Task::create([
-                'project_id' => $project->id,
-                'task_kind_id' => $request->task_kind_id,
-                'name' => $request->name,
-                'detail' => $request->detail,
-                'task_status_id' => $request->task_status_id,
-                'assigner_id' => $request->assigner_id,
-                'task_category_id' => $request->task_category_id,
-                'due_date' => $request->due_date,
-                'created_user_id' => $request->user()->id,
-            ]);
-            DB::commit();
-        } catch (\Throwable $error) {
-            DB::rollBack();
-            $task = null;
-        }
+
+        $task = Task::createTask($request, $project);
 
         if ($task) {
             $flash = ['success' => __('Task created successfully.')];
