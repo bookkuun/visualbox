@@ -53,7 +53,8 @@ class ProjectController extends Controller
 
     public function store(ProjectRequest $request)
     {
-        $project = Project::createProjectWithMembers($request->input('title'), Auth::id(), $request->input('users'));
+        $owner = Auth::user();
+        $project = Project::createProjectWithMembers($owner, $request->input('title'), $request->input('users'));
 
         if ($project) {
             $flash = ['success' => __('Project created successfully.')];

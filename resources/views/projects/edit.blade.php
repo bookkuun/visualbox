@@ -13,12 +13,11 @@
         <h2>{{ __('Project Edit') }}</h2>
     </x-slot>
 
+    {{-- メッセージ --}}
+    <x-flash-message />
+    <x-validation-errors :errors="$errors" />
+
     <div class="m-6">
-
-
-        {{-- メッセージ --}}
-        <x-flash-message />
-        <x-validation-errors :errors="$errors" />
 
         <form method="POST" action="{{ route('projects.update', ['project' => $project]) }}">
             @csrf

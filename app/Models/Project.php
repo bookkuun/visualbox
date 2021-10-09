@@ -45,14 +45,14 @@ class Project extends Model
         return $this->belongsToMany(User::class, 'user_join_projects', 'project_id', 'user_id');
     }
 
-    public static function createProjectWithMembers($title, $user_id, $members)
+    public static function createProjectWithMembers($owner, $title, $members)
     {
         DB::beginTransaction();
 
         try {
             $project = self::create([
                 'title' => $title,
-                'user_id' => $user_id,
+                'user_id' => $owner->id,
             ]);
 
             foreach ($members as $member) {
