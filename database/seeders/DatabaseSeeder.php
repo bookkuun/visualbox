@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(TaskCategory::class);
         $this->call(TaskKind::class);
-        $this->call(TaskResolution::class);
         $this->call(TaskStatus::class);
         $this->call(UserAuthority::class);
         $this->call(User::class);

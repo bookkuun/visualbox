@@ -19,4 +19,13 @@ class UserJoinProject extends Model
         'project_id',
         'user_authority_id',
     ];
+
+    public static function createJoinGroup($member, $project)
+    {
+        return self::create([
+            'user_id' => (int)$member['id'],
+            'project_id' => $project->id,
+            'user_authority_id' => (int)$member['authority'],
+        ]);
+    }
 }

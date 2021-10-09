@@ -118,7 +118,7 @@
                                 <br>
                                 {{ $comment->created_at }}
                             </div>
-                            @if (Auth::user()->own($comment))
+                            @if (Auth::id() === $comment->user_id)
                                 <div class="pt-2 pr-2">
                                     <form method="POST"
                                         action="{{ route('comments.destroy', ['project' => $project->id, 'task' => $task, 'comment' => $comment]) }}">

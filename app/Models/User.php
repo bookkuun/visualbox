@@ -59,7 +59,7 @@ class User extends Authenticatable
     }
 
     /**
-     * ユーザーが作成した課題を取得.
+     * ユーザーが作成したタスクを取得.
      */
     public function tasks()
     {
@@ -67,18 +67,16 @@ class User extends Authenticatable
     }
 
     /**
-     * ユーザーの担当課題を取得.
+     * ユーザーの担当タスクを取得.
      */
     public function myTasks()
     {
         return $this->hasMany(Task::class, 'assigner_id');
     }
 
-    public function own($something)
-    {
-        return $this->id === $something->user_id;
-    }
-
+    /**
+     * ユーザーがプロジェクトにどのような権限があるかを取得
+     */
     public function getAuthorityId($project)
     {
         $record = UserJoinProject::where('user_id', '=', $this->id)->where('project_id', '=', $project->id)->first();
@@ -86,7 +84,7 @@ class User extends Authenticatable
         if ($record) {
             return $record['user_authority_id'];
         } else {
-            return false;
+            return null;
         }
     }
 }

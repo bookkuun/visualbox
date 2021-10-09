@@ -22,7 +22,8 @@ class TaskCategoryFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => '教科指導',
+            'display_order' => 1,
         ];
     }
 }

@@ -13,12 +13,11 @@
         <h2>{{ __('Project Edit') }}</h2>
     </x-slot>
 
+    {{-- メッセージ --}}
+    <x-flash-message />
+    <x-validation-errors :errors="$errors" />
+
     <div class="m-6">
-
-
-        {{-- メッセージ --}}
-        <x-flash-message />
-        <x-validation-errors :errors="$errors" />
 
         <form method="POST" action="{{ route('projects.update', ['project' => $project]) }}">
             @csrf
@@ -74,17 +73,17 @@
                             <x-label for="user_authority_id" :value="__('User Authority')" />
                             <x-select :disabled=true :options="$user_authorities"
                                 class="user_authority_id block mt-1 w-full {{ $errors->has('user_authority_id') ? 'border-red-600' : '' }}"
-                                name="users[0][authority]" :value=$admin_id />
+                                name="users[0][authority]" :value=$project_admin_id />
                         </div>
 
                         <input class="hidden" type="text" name="users[0][id]"
                             value="{{ $project->user->id }}">
                         <input class="hidden" type="text" name="users[0][authority]"
-                            value="{{ $admin_id }}">
+                            value="{{ $project_admin_id }}">
                     </div>
 
                     <div id="project_members">
-                        @foreach ($except_author_users as $key => $user)
+                        @foreach ($project_join_members as $key => $user)
                             <div id="join_member_{{ $user->id }}" class="flex mb-6">
                                 <div class="w-1/4">
                                     <x-label :value="__('Member')"

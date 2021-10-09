@@ -10,6 +10,7 @@ use App\Models\TaskKind;
 use App\Models\TaskStatus;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
@@ -45,11 +46,6 @@ class TaskController extends Controller
         return view('tasks.index', compact('project', 'tasks', 'keyword'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(Project $project)
     {
         $task_kinds = TaskKind::all();
@@ -60,25 +56,12 @@ class TaskController extends Controller
         return view('tasks.create', compact('project', 'task_kinds', 'task_statuses', 'task_categories', 'assigners'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(TaskRequest $request, Project $project)
     {
-        if (Task::create([
-            'project_id' => $project->id,
-            'task_kind_id' => $request->task_kind_id,
-            'name' => $request->name,
-            'detail' => $request->detail,
-            'task_status_id' => $request->task_status_id,
-            'assigner_id' => $request->assigner_id,
-            'task_category_id' => $request->task_category_id,
-            'due_date' => $request->due_date,
-            'created_user_id' => $request->user()->id,
-        ])) {
+        $owner = Auth::user();
+        $task = Task::createTask($owner, $project, $request);
+
+        if ($task) {
             $flash = ['success' => __('Task created successfully.')];
         } else {
             $flash = ['error' => __('Failed to create the task.')];
@@ -89,12 +72,6 @@ class TaskController extends Controller
             ->with($flash);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(Project $project, Task $task)
     {
         $task_kinds = TaskKind::all();
@@ -106,12 +83,6 @@ class TaskController extends Controller
         return view('tasks.show',  compact('project', 'task', 'task_kinds', 'task_statuses', 'task_categories', 'assigners', 'task_comments'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Project $project, Task $task)
     {
         $task_kinds = TaskKind::all();
@@ -123,13 +94,6 @@ class TaskController extends Controller
         return view('tasks.edit', compact('project', 'task', 'task_kinds', 'task_statuses', 'task_categories', 'assigners', 'task_comments'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(TaskRequest $request, Project $project, Task $task)
     {
         if ($task->update($request->all())) {
@@ -143,12 +107,6 @@ class TaskController extends Controller
             ->with($flash);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Project $project, Task $task)
     {
         if ($task->delete()) {

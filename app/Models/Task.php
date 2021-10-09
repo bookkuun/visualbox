@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Task extends Model
 {
@@ -27,7 +28,6 @@ class Task extends Model
         'assigner_id',
         'task_category_id',
         'due_date',
-        'task_resolution_id',
     ];
 
     protected $dates = [
@@ -37,23 +37,7 @@ class Task extends Model
     ];
 
     /**
-     * 課題種別を取得.
-     */
-    public function task_kind()
-    {
-        return $this->belongsTo(TaskKind::class, 'task_kind_id');
-    }
-
-    /**
-     * 課題状態を取得.
-     */
-    public function task_status()
-    {
-        return $this->belongsTo(TaskStatus::class, 'task_status_id');
-    }
-
-    /**
-     * 課題を所有しているユーザーを取得.
+     * タスクを所有しているユーザーを取得.
      */
     public function user()
     {
@@ -61,7 +45,7 @@ class Task extends Model
     }
 
     /**
-     * 課題を所有しているプロジェクトを取得.
+     * タスクを所有しているプロジェクトを取得.
      */
     public function project()
     {
@@ -69,23 +53,31 @@ class Task extends Model
     }
 
     /**
-     * 課題を更新したユーザーを取得.
+     * タスクのコメントを取得.
      */
-    public function updated_user()
+    public function task_comments()
     {
-        return $this->belongsTo(User::class, 'updated_user_id');
+        return $this->hasMany(TaskComment::class);
     }
 
     /**
-     * 課題の担当者を取得.
+     * タスクの種別を取得.
      */
-    public function assigner()
+    public function task_kind()
     {
-        return $this->belongsTo(User::class, 'assigner_id');
+        return $this->belongsTo(TaskKind::class, 'task_kind_id');
     }
 
     /**
-     * 課題カテゴリーを取得.
+     * タスクの状態を取得.
+     */
+    public function task_status()
+    {
+        return $this->belongsTo(TaskStatus::class, 'task_status_id');
+    }
+
+    /**
+     * タスクのカテゴリーを取得.
      */
     public function task_category()
     {
@@ -93,18 +85,36 @@ class Task extends Model
     }
 
     /**
-     * 課題の完了理由を取得.
+     * タスクの担当者を取得.
      */
-    public function task_resolution()
+    public function assigner()
     {
-        return $this->belongsTo(TaskResolution::class, 'task_resolution_id');
+        return $this->belongsTo(User::class, 'assigner_id');
     }
 
     /**
-     * 課題のコメントを取得.
+     * タスクを作成する
      */
-    public function task_comments()
+    public static function createTask($owner, $project, $request)
     {
-        return $this->hasMany(TaskComment::class);
+        DB::beginTransaction();
+        try {
+            $task = Task::create([
+                'project_id' => $project->id,
+                'task_kind_id' => $request->task_kind_id,
+                'name' => $request->name,
+                'detail' => $request->detail,
+                'task_status_id' => $request->task_status_id,
+                'assigner_id' => $request->assigner_id,
+                'task_category_id' => $request->task_category_id,
+                'due_date' => $request->due_date,
+                'created_user_id' => $owner->id,
+            ]);
+            DB::commit();
+        } catch (\Throwable $error) {
+            DB::rollBack();
+            $task = null;
+        }
+        return $task;
     }
 }
