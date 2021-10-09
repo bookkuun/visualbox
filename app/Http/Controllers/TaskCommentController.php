@@ -13,7 +13,8 @@ class TaskCommentController extends Controller
 {
     public function store(TaskCommentRequest $request, Project $project, Task $task)
     {
-        $comment = TaskComment::createComment($task, $request->input('comment'), Auth::user());
+        $owner = Auth::user();
+        $comment = TaskComment::createComment($owner, $task, $request->input('comment'));
 
         if ($comment) {
             $flash = ['success' => __('Comment created successfully.')];
