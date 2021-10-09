@@ -30,7 +30,7 @@ class Project extends Model
     }
 
     /**
-     * プロジェクトを所有している課題を取得.
+     * プロジェクトを所有しているタスクを取得.
      */
     public function tasks()
     {

@@ -59,7 +59,7 @@ class User extends Authenticatable
     }
 
     /**
-     * ユーザーが作成した課題を取得.
+     * ユーザーが作成したタスクを取得.
      */
     public function tasks()
     {
@@ -67,7 +67,7 @@ class User extends Authenticatable
     }
 
     /**
-     * ユーザーの担当課題を取得.
+     * ユーザーの担当タスクを取得.
      */
     public function myTasks()
     {
