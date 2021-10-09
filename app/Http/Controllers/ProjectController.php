@@ -10,10 +10,10 @@ use App\Models\UserAuthority;
 use App\Models\UserJoinProject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
-
     public function dashboard()
     {
         $user = Auth::user();
@@ -26,11 +26,6 @@ class ProjectController extends Controller
         return view('dashboard', compact('not_processed_tasks', 'processing_tasks', 'processed_tasks', 'closed_tasks'));
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         $request->validate([
@@ -48,41 +43,20 @@ class ProjectController extends Controller
         return view('projects.index', compact('projects', 'keyword'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $users = User::all();
-
         $user_authorities = UserAuthority::all();
-
-        $admin_id = 3;
+        $admin_id = UserAuthority::PROJECT_ADMIN;
 
         return view('projects.create', compact('users', 'user_authorities', 'admin_id'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(ProjectRequest $request)
     {
-        if ($project = Project::create([
-            'title' => $request->title,
-            'user_id' => $request->user()->id,
-        ])) {
-            foreach ($request->users as $member) {
-                UserJoinProject::create([
-                    'user_id' => (int)$member['id'],
-                    'project_id' => $project->id,
-                    'user_authority_id' => (int)$member['authority'],
-                ]);
-            }
+        $project = Project::createProjectWithMembers($request->title, $request->user()->id, $request->users);
+
+        if ($project) {
             $flash = ['success' => __('Project created successfully.')];
         } else {
             $flash = ['error' => __('Failed to create the project.')];

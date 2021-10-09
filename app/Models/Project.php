@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Project extends Model
 {
@@ -42,5 +43,27 @@ class Project extends Model
     public function joinUsers()
     {
         return $this->belongsToMany(User::class, 'user_join_projects', 'project_id', 'user_id');
+    }
+
+    public static function createProjectWithMembers($title, $user_id, $users)
+    {
+        DB::beginTransaction();
+
+        try {
+            $project = self::create([
+                'title' => $title,
+                'user_id' => $user_id,
+            ]);
+
+            foreach ($users as $member) {
+                UserJoinProject::createJoinGroup($member, $project);
+            }
+
+            DB::commit();
+        } catch (\Throwable $error) {
+            DB::rollBack();
+            return null;
+        }
+        return $project;
     }
 }
