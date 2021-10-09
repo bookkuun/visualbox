@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class TaskComment extends Model
 {
@@ -18,5 +19,23 @@ class TaskComment extends Model
     public function user()
     {
         return $this->belongsTo(User::class)->withDefault();
+    }
+
+    public static function createComment($task, $comment, $user)
+    {
+        DB::beginTransaction();
+        try {
+            $comment = TaskComment::create([
+                'task_id' => $task->id,
+                'comment' => $comment,
+                'user_id' => $user->id
+            ]);
+
+            DB::commit();
+        } catch (\Throwable $error) {
+            DB::rollBack();
+            return null;
+        }
+        return $comment;
     }
 }
