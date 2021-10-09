@@ -17,7 +17,7 @@ class TaskCategory extends Seeder
             ['name' => '教科指導', 'display_order' => 1],
             ['name' => '生徒指導', 'display_order' => 2],
             ['name' => '校務分掌', 'display_order' => 3],
-            ['name' => 'その他', 'display_order' => 3],
+            ['name' => 'その他', 'display_order' => 4],
         ]);
     }
 }
