@@ -66,23 +66,13 @@ class ProjectController extends Controller
             ->route('projects.index')
             ->with($flash);
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function show($id)
     {
         // なし
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Project $project)
     {
         $users = User::all();
