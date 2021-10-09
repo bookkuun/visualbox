@@ -36,9 +36,7 @@ class TaskTest extends TestCase
     /** @test comments */
     public function コメントのリレーションを返す()
     {
-        $task = Task::factory()
-            ->has(TaskComment::factory()->count(3), 'task_comments')
-            ->create();
+        $task = Task::factory()->create();
 
         $this->assertInstanceOf(Collection::class, $task->task_comments);
     }

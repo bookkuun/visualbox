@@ -24,9 +24,7 @@ class ProjectTest extends TestCase
     /** @test tasks */
     public function タスクのリレーションを返す()
     {
-        $project = Project::factory()
-            ->has(Task::factory()->count(3))
-            ->create();
+        $project = Project::factory()->create();
 
         $this->assertInstanceOf(Collection::class, $project->tasks);
     }
