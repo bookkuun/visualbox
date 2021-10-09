@@ -13,7 +13,6 @@ class TaskCommentController extends Controller
 {
     public function store(TaskCommentRequest $request, Project $project, Task $task)
     {
-
         $comment = TaskComment::createComment($task, $request->input('comment'), Auth::user());
 
         if ($comment) {
