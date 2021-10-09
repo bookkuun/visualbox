@@ -66,4 +66,33 @@ class Project extends Model
         }
         return $project;
     }
+
+    public function updateProjectWithMembers($title, $users)
+    {
+        DB::beginTransaction();
+
+        try {
+            $this->update([
+                'title' =>  $title
+            ]);
+
+            foreach ($users as $member) {
+                $user = User::find((int)$member['id']);
+                if ($user->getAuthorityId($this)) {
+                    UserJoinProject::where('user_id', (int)$member['id'])
+                        ->where('project_id', $this->id)
+                        ->update([
+                            'user_authority_id' => (int)$member['authority'],
+                        ]);
+                } else {
+                    UserJoinProject::createJoinGroup($member, $this);
+                }
+            }
+
+            DB::commit();
+        } catch (\Throwable $error) {
+            DB::rollBack();
+            return null;
+        }
+    }
 }

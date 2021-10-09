@@ -98,35 +98,11 @@ class ProjectController extends Controller
         return view('projects.edit', compact('project', 'users', 'user_authorities', 'admin_id', 'except_author_users'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(ProjectRequest $request, Project $project)
     {
-        if (Project::find($project->id)->update([
-            'title' => $request->input('title')
-        ])) {
-            foreach ($request->users as $member) {
-                $user = User::find((int)$member['id']);
-                if ($user->getAuthorityId($project)) {
-                    UserJoinProject::where('user_id', (int)$member['id'])
-                        ->where('project_id', $project->id)
-                        ->update([
-                            'user_authority_id' => (int)$member['authority'],
-                        ]);
-                } else {
-                    UserJoinProject::create([
-                        'user_id' => (int)$member['id'],
-                        'project_id' => $project->id,
-                        'user_authority_id' => (int)$member['authority'],
-                    ]);
-                }
-            }
+        $project->updateProjectWithMembers($request->input('title'), $request->users);
 
+        if ($project) {
             $flash = ['success' => __('Project updated successfully.')];
         } else {
             $flash = ['error' => __('Failed to update the project.')];
