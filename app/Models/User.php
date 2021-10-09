@@ -74,11 +74,6 @@ class User extends Authenticatable
         return $this->hasMany(Task::class, 'assigner_id');
     }
 
-    public function own($something)
-    {
-        return $this->id === $something->user_id;
-    }
-
     public function getAuthorityId($project)
     {
         $record = UserJoinProject::where('user_id', '=', $this->id)->where('project_id', '=', $project->id)->first();
