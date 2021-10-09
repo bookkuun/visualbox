@@ -95,7 +95,7 @@ class Task extends Model
     /**
      * タスクを作成する
      */
-    public static function createTask($project, $request)
+    public static function createTask($owner, $project, $request)
     {
         DB::beginTransaction();
         try {
@@ -108,7 +108,7 @@ class Task extends Model
                 'assigner_id' => $request->assigner_id,
                 'task_category_id' => $request->task_category_id,
                 'due_date' => $request->due_date,
-                'created_user_id' => $request->user()->id,
+                'created_user_id' => $owner->id,
             ]);
             DB::commit();
         } catch (\Throwable $error) {

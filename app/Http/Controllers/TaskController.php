@@ -10,6 +10,7 @@ use App\Models\TaskKind;
 use App\Models\TaskStatus;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
@@ -57,8 +58,8 @@ class TaskController extends Controller
 
     public function store(TaskRequest $request, Project $project)
     {
-
-        $task = Task::createTask($request, $project);
+        $owner = Auth::user();
+        $task = Task::createTask($owner, $project, $request);
 
         if ($task) {
             $flash = ['success' => __('Task created successfully.')];
