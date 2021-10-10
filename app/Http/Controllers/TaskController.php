@@ -47,7 +47,7 @@ class TaskController extends Controller
         $task_kinds = TaskKind::all();
         $task_statuses = TaskStatus::all();
         $task_categories = TaskCategory::all();
-        $assigners = User::all();
+        $assigners = $project->joinUsers;
 
         return view('tasks.create', compact('project', 'task_kinds', 'task_statuses', 'task_categories', 'assigners'));
     }
@@ -73,7 +73,7 @@ class TaskController extends Controller
         $task_kinds = TaskKind::all();
         $task_statuses = TaskStatus::all();
         $task_categories = TaskCategory::all();
-        $assigners = User::all();
+        $assigners = $project->joinUsers;
         $task_comments = $task->task_comments;
 
         return view('tasks.show',  compact('project', 'task', 'task_kinds', 'task_statuses', 'task_categories', 'assigners', 'task_comments'));
@@ -84,7 +84,7 @@ class TaskController extends Controller
         $task_kinds = TaskKind::all();
         $task_statuses = TaskStatus::all();
         $task_categories = TaskCategory::all();
-        $assigners = User::all();
+        $assigners = $project->joinUsers;
         $task_comments = $task->task_comments;
 
         return view('tasks.edit', compact('project', 'task', 'task_kinds', 'task_statuses', 'task_categories', 'assigners', 'task_comments'));

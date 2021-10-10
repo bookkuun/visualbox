@@ -50,7 +50,16 @@ class ProjectController extends Controller
 
     public function create()
     {
-        $users = User::all();
+        $user = Auth::user();
+
+        if ($user->id <= 3) {
+            $users = User::where('id', '<=', 3)->get();
+        } elseif ($user->id <= 6) {
+            $users = User::where('id', '<=', 6)->get();
+        } else {
+            $users = User::where('id', '>=', 7)->get();
+        }
+
         $user_authorities = UserAuthority::all();
         $project_admin_id = UserAuthority::PROJECT_ADMIN;
 
@@ -80,7 +89,16 @@ class ProjectController extends Controller
 
     public function edit(Project $project)
     {
-        $users = User::all();
+        $user = Auth::user();
+
+        if ($user->id <= 3) {
+            $users = User::where('id', '<=', 3)->get();
+        } elseif ($user->id <= 6) {
+            $users = User::where('id', '<=', 6)->get();
+        } else {
+            $users = User::where('id', '>=', 7)->get();
+        }
+
         $user_authorities = UserAuthority::all();
         $project_admin_id = UserAuthority::PROJECT_ADMIN;
         $project_join_members = $project->joinUsers->where('id', '!=', $project->user->id);
