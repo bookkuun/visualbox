@@ -34,7 +34,7 @@ class ProjectController extends Controller
         $keyword = $request->input('keyword');
 
         $projects = Project::select('projects.*')
-            ->join('user_join_projects', 'projects.id', '=', 'user_join_projects.project_id')
+            ->join('user_join_projects', 'projects.id', 'user_join_projects.project_id')
             ->where('user_join_projects.user_id', Auth::id())
             ->distinct();
 
@@ -43,7 +43,7 @@ class ProjectController extends Controller
                 ->where('title', 'like', '%' . $keyword . '%');
         }
 
-        $projects = $projects->paginate(20);
+        $projects = $projects->latest()->paginate(20);
 
         return view('projects.index', compact('projects', 'keyword'));
     }

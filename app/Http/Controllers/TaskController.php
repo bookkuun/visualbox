@@ -28,20 +28,16 @@ class TaskController extends Controller
 
         $keyword = $request->input('keyword');
 
+        $tasks = Task::select('tasks.*')
+            ->join('projects', 'tasks.project_id', 'projects.id')
+            ->where('project_id', '=', $project->id)
+            ->distinct();
+
         if ($request->has('keyword') && $keyword != '') {
-            $tasks = Task::select('tasks.*')
-                ->join('projects', 'tasks.project_id', 'projects.id')
-                ->where('project_id', '=', $project->id)
-                ->where('name', 'like', '%' . $keyword . '%')
-                ->latest()
-                ->paginate(20);
-        } else {
-            $tasks = Task::select('tasks.*')
-                ->join('projects', 'tasks.project_id', 'projects.id')
-                ->where('project_id', '=', $project->id)
-                ->latest()
-                ->paginate(20);
+            $tasks = $tasks->where('name', 'like', '%' . $keyword . '%');
         }
+
+        $tasks = $tasks->latest()->paginate();
 
         return view('tasks.index', compact('project', 'tasks', 'keyword'));
     }
