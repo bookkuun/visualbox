@@ -14,6 +14,17 @@ use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
+
+    /**
+     * コントローラインスタンスの生成
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Project::class, 'project');
+    }
+
     public function dashboard()
     {
         $user = Auth::user();
