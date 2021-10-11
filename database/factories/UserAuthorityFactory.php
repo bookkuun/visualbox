@@ -22,7 +22,8 @@ class UserAuthorityFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => '閲覧',
+            'display_order' => 1,
         ];
     }
 }
