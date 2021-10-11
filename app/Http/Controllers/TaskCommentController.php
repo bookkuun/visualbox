@@ -13,10 +13,11 @@ class TaskCommentController extends Controller
 {
     public function store(TaskCommentRequest $request, Project $project, Task $task)
     {
-        $owner = Auth::user();
-        $comment = TaskComment::createComment($owner, $task, $request->input('comment'));
-
-        if ($comment) {
+        if (TaskComment::create([
+            'task_id' => $task->id,
+            'comment' => $request->input('comment'),
+            'user_id' => $request->user()->id,
+        ])) {
             $flash = ['success' => __('Comment created successfully.')];
         } else {
             $flash = ['error' => __('Failed to create the comment.')];
@@ -24,11 +25,6 @@ class TaskCommentController extends Controller
 
         return redirect()->route('tasks.show', ['project' => $project->id, 'task' => $task->id])
             ->with($flash);
-    }
-
-    public function update(Request $request, $id)
-    {
-        // なし
     }
 
     public function destroy(Project $project, Task $task, TaskComment $comment)
