@@ -14,6 +14,17 @@ use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
+
+    /**
+     * コントローラインスタンスの生成
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Project::class, 'project');
+    }
+
     public function dashboard()
     {
         $user = Auth::user();
@@ -33,18 +44,33 @@ class ProjectController extends Controller
 
         $keyword = $request->input('keyword');
 
+        $projects = Project::select('projects.*')
+            ->join('user_join_projects', 'projects.id', 'user_join_projects.project_id')
+            ->where('user_join_projects.user_id', Auth::id())
+            ->distinct();
+
         if ($request->has('keyword') && $keyword != '') {
-            $projects = Project::where('title', 'like', '%' . $keyword . '%')->latest()->paginate(20);
-        } else {
-            $projects = Project::latest()->paginate(20);
+            $projects = $projects
+                ->where('title', 'like', '%' . $keyword . '%');
         }
+
+        $projects = $projects->latest()->paginate(20);
 
         return view('projects.index', compact('projects', 'keyword'));
     }
 
     public function create()
     {
-        $users = User::all();
+        $user = Auth::user();
+
+        if ($user->id <= 3) {
+            $users = User::where('id', '<=', 3)->get();
+        } elseif ($user->id <= 6) {
+            $users = User::where('id', '<=', 6)->get();
+        } else {
+            $users = User::where('id', '>=', 7)->get();
+        }
+
         $user_authorities = UserAuthority::all();
         $project_admin_id = UserAuthority::PROJECT_ADMIN;
 
@@ -74,7 +100,16 @@ class ProjectController extends Controller
 
     public function edit(Project $project)
     {
-        $users = User::all();
+        $user = Auth::user();
+
+        if ($user->id <= 3) {
+            $users = User::where('id', '<=', 3)->get();
+        } elseif ($user->id <= 6) {
+            $users = User::where('id', '<=', 6)->get();
+        } else {
+            $users = User::where('id', '>=', 7)->get();
+        }
+
         $user_authorities = UserAuthority::all();
         $project_admin_id = UserAuthority::PROJECT_ADMIN;
         $project_join_members = $project->joinUsers->where('id', '!=', $project->user->id);

@@ -141,21 +141,24 @@
             </div>
         @endforeach
 
-        <form name="deleteform" method="POST"
-            action="{{ route('tasks.destroy', ['project' => $project->id, 'task' => $task]) }}">
-            @csrf
-            @method('DELETE')
+        @can('projectAdmin', $project)
 
-            <!-- Navigation -->
-            <div class="flex justify-start my-6">
-                <x-button id="delete-task-modal"
-                    class=" bg-red-600 text-white hover:bg-red-700 active:bg-red-900
-                    focus:border-red-900 ring-red-300"
-                    onclick="return confirm('本当に削除しますか？')">
-                    {{ __('Task Delete') }}
-                </x-button>
-            </div>
-        </form>
+            <form name="deleteform" method="POST"
+                action="{{ route('tasks.destroy', ['project' => $project->id, 'task' => $task]) }}">
+                @csrf
+                @method('DELETE')
+
+                <!-- Navigation -->
+                <div class="flex justify-start my-6">
+                    <x-button id="delete-task-modal"
+                        class=" bg-red-600 text-white hover:bg-red-700 active:bg-red-900
+            focus:border-red-900 ring-red-300"
+                        onclick="return confirm('本当に削除しますか？')">
+                        {{ __('Task Delete') }}
+                    </x-button>
+                </div>
+            </form>
+        @endcan
 
 
     </div>

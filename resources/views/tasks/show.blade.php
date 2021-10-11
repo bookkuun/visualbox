@@ -12,12 +12,14 @@
     <x-flash-message />
 
     <div class="m-6">
-        <div class="flex justify-end mb-3">
-            <x-link-button class="m-2"
-                :href="route('tasks.edit', ['project' => $project->id, 'task' => $task->id])">
-                編集
-            </x-link-button>
-        </div>
+        @can('projectEditorOrMore', $project)
+            <div class="flex justify-end mb-3">
+                <x-link-button class="m-2"
+                    :href="route('tasks.edit', ['project' => $project->id, 'task' => $task->id])">
+                    編集
+                </x-link-button>
+            </div>
+        @endcan
 
         <div class="rounded-md bg-white p-6">
             <div class="text-xl mb-3">

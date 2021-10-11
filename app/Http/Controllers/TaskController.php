@@ -15,49 +15,46 @@ use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request, Project $project)
     {
+        $this->authorize('viewAny', [Task::class, $project]);
+
         $request->validate([
             'keyword' => 'max:255',
         ]);
 
         $keyword = $request->input('keyword');
 
+        $tasks = Task::select('tasks.*')
+            ->join('projects', 'tasks.project_id', 'projects.id')
+            ->where('project_id', '=', $project->id)
+            ->distinct();
+
         if ($request->has('keyword') && $keyword != '') {
-            $tasks = Task::select('tasks.*')
-                ->join('projects', 'tasks.project_id', 'projects.id')
-                ->where('project_id', '=', $project->id)
-                ->where('name', 'like', '%' . $keyword . '%')
-                ->latest()
-                ->paginate(20);
-        } else {
-            $tasks = Task::select('tasks.*')
-                ->join('projects', 'tasks.project_id', 'projects.id')
-                ->where('project_id', '=', $project->id)
-                ->latest()
-                ->paginate(20);
+            $tasks = $tasks->where('name', 'like', '%' . $keyword . '%');
         }
+
+        $tasks = $tasks->latest()->paginate();
 
         return view('tasks.index', compact('project', 'tasks', 'keyword'));
     }
 
     public function create(Project $project)
     {
+        $this->authorize('create', [Task::class, $project]);
+
         $task_kinds = TaskKind::all();
         $task_statuses = TaskStatus::all();
         $task_categories = TaskCategory::all();
-        $assigners = User::all();
+        $assigners = $project->joinUsers;
 
         return view('tasks.create', compact('project', 'task_kinds', 'task_statuses', 'task_categories', 'assigners'));
     }
 
     public function store(TaskRequest $request, Project $project)
     {
+        $this->authorize('create', [Task::class, $project]);
+
         $owner = Auth::user();
         $task = Task::createTask($owner, $project, $request);
 
@@ -74,10 +71,12 @@ class TaskController extends Controller
 
     public function show(Project $project, Task $task)
     {
+        $this->authorize('view', [Task::class, $project]);
+
         $task_kinds = TaskKind::all();
         $task_statuses = TaskStatus::all();
         $task_categories = TaskCategory::all();
-        $assigners = User::all();
+        $assigners = $project->joinUsers;
         $task_comments = $task->task_comments;
 
         return view('tasks.show',  compact('project', 'task', 'task_kinds', 'task_statuses', 'task_categories', 'assigners', 'task_comments'));
@@ -85,10 +84,12 @@ class TaskController extends Controller
 
     public function edit(Project $project, Task $task)
     {
+        $this->authorize('update', [Task::class, $project]);
+
         $task_kinds = TaskKind::all();
         $task_statuses = TaskStatus::all();
         $task_categories = TaskCategory::all();
-        $assigners = User::all();
+        $assigners = $project->joinUsers;
         $task_comments = $task->task_comments;
 
         return view('tasks.edit', compact('project', 'task', 'task_kinds', 'task_statuses', 'task_categories', 'assigners', 'task_comments'));
@@ -96,6 +97,8 @@ class TaskController extends Controller
 
     public function update(TaskRequest $request, Project $project, Task $task)
     {
+        $this->authorize('update', [Task::class, $project]);
+
         if ($task->update($request->all())) {
             $flash = ['success' => __('Task updated successfully.')];
         } else {
@@ -109,6 +112,8 @@ class TaskController extends Controller
 
     public function destroy(Project $project, Task $task)
     {
+        $this->authorize('delete', [Task::class, $project]);
+
         if ($task->delete()) {
             $flash = ['success' => __('Task deleted successfully.')];
         } else {

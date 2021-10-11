@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TaskKind::class);
         $this->call(TaskStatus::class);
         $this->call(UserAuthority::class);
-        $this->call(User::class);
 
         // User::factory(10)->create()->each(function ($user) {
         //     Project::factory(5)->create(['user_id' => $user->id]);

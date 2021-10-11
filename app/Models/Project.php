@@ -91,6 +91,7 @@ class Project extends Model
                             'user_authority_id' => (int)$member['authority'],
                         ]);
                 } else {
+
                     UserJoinProject::createJoinGroup($member, $this);
                 }
             }

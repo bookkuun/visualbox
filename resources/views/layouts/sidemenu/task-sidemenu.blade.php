@@ -33,10 +33,12 @@
                 <span>タスク一覧</span>
             </a>
         </li>
-        <li>
-            <a href="{{ route('tasks.create', ['project' => $project->id]) }}"
-                class="flex items-center space-x-3 p-2 rounded-md hover:bg-gray-200 hover:text-gray-800 focus:bg-gray-200 focus:shadow-outline">
-                <span>タスク作成</span>
-            </a>
-        </li>
+        @can('projectEditorOrMore', $project)
+            <li>
+                <a href="{{ route('tasks.create', ['project' => $project->id]) }}"
+                    class="flex items-center space-x-3 p-2 rounded-md hover:bg-gray-200 hover:text-gray-800 focus:bg-gray-200 focus:shadow-outline">
+                    <span>タスク作成</span>
+                </a>
+            </li>
+        @endcan
     </ul>
