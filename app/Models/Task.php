@@ -91,30 +91,4 @@ class Task extends Model
     {
         return $this->belongsTo(User::class, 'assigner_id');
     }
-
-    /**
-     * タスクを作成する
-     */
-    public static function createTask($owner, $project, $request)
-    {
-        DB::beginTransaction();
-        try {
-            $task = Task::create([
-                'project_id' => $project->id,
-                'task_kind_id' => $request->task_kind_id,
-                'name' => $request->name,
-                'detail' => $request->detail,
-                'task_status_id' => $request->task_status_id,
-                'assigner_id' => $request->assigner_id,
-                'task_category_id' => $request->task_category_id,
-                'due_date' => $request->due_date,
-                'created_user_id' => $owner->id,
-            ]);
-            DB::commit();
-        } catch (\Throwable $error) {
-            DB::rollBack();
-            $task = null;
-        }
-        return $task;
-    }
 }

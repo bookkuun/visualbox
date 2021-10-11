@@ -55,10 +55,17 @@ class TaskController extends Controller
     {
         $this->authorize('create', [Task::class, $project]);
 
-        $owner = Auth::user();
-        $task = Task::createTask($owner, $project, $request);
-
-        if ($task) {
+        if (Task::create([
+            'project_id' => $project->id,
+            'task_kind_id' => $request->task_kind_id,
+            'name' => $request->name,
+            'detail' => $request->detail,
+            'task_status_id' => $request->task_status_id,
+            'assigner_id' => $request->assigner_id,
+            'task_category_id' => $request->task_category_id,
+            'due_date' => $request->due_date,
+            'created_user_id' => $request->user()->id
+        ])) {
             $flash = ['success' => __('Task created successfully.')];
         } else {
             $flash = ['error' => __('Failed to create the task.')];
