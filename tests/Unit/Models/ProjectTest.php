@@ -41,10 +41,8 @@ class ProjectTest extends TestCase
     /** @test createProjectWithMembers */
     public function プロジェクトと参加メンバーを作成()
     {
-        $user = User::factory()->create();
+        $user1 = User::factory()->create();
         $user2 = User::factory()->create();
-
-        $project = Project::factory()->create();
 
         $project_viewer = UserAuthority::factory()->create();
         $project_editor = UserAuthority::factory()->create([
@@ -60,7 +58,7 @@ class ProjectTest extends TestCase
 
         $members = [
             [
-                "id" => $user->id,
+                "id" => $user1->id,
                 "authority" => $project_admin->id,
             ],
             [
@@ -69,12 +67,12 @@ class ProjectTest extends TestCase
             ]
         ];
 
-        Project::createProjectWithMembers($user, $title, $members);
+        Project::createProjectWithMembers($user1, $title, $members);
 
         $this
             ->assertDatabaseHas('projects', [
                 "title" => 'おはようございます。',
-                "user_id" => $user->id,
+                "user_id" => $user1->id,
             ])
             ->assertDatabaseHas('user_join_projects', [
                 "id" => 1,

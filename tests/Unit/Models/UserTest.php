@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\UserAuthority;
 use App\Models\UserJoinProject;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -47,17 +48,38 @@ class UserTest extends TestCase
     }
 
     /** @test getAuthorityId */
-    // public function プロジェクトでの権限を取得できる()
-    // {
-    //     $user1 = User::factory()->create();
-    //     $user2 = User::factory()->create();
-    //     $project = Project::factory()->create();
+    public function プロジェクトでの権限を取得できる()
+    {
+        $user1 = User::factory()->create();
+        $user2 = User::factory()->create();
 
-    //     UserJoinProject::factory()->create([
-    //         'user_id' => $user1,
-    //         'project_id' => $project,
-    //     ]);
+        $project_viewer = UserAuthority::factory()->create();
+        $project_editor = UserAuthority::factory()->create([
+            'name' => '編集',
+            'display_order' => 2,
+        ]);
+        $project_admin = UserAuthority::factory()->create([
+            'name' => '管理者',
+            'display_order' => 3,
+        ]);
 
-    //     $this->assertSame(1, $user1->getAuthorityId($project));
-    //     $this->assertFalse($user2->getAuthorityId($project));}
+        $title = 'おはようございます。';
+
+        $members = [
+            [
+                "id" => $user1->id,
+                "authority" => $project_admin->id,
+            ],
+            [
+                "id" => $user2->id,
+                "authority" => $project_editor->id,
+            ]
+        ];
+
+        $project = Project::createProjectWithMembers($user1, $title, $members);
+
+        $user1_authority_id = $user1->getAuthorityId($project);
+
+        $this->assertSame(3, (int)$user1_authority_id);
+    }
 }
