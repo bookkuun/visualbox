@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Project;
+use App\Models\User;
+use App\Models\UserAuthority;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -25,6 +28,16 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('projectAdmin', function (User $user, Project $project) {
+            $user->getAuthorityId($project) === UserAuthority::PROJECT_ADMIN;
+        });
+
+        Gate::define('ProjectEditorOrMore', function (User $user, Project $project) {
+            $user->getAuthorityId($project) >= UserAuthority::PROJECT_EDITOR;
+        });
+
+        Gate::define('ProjectViewerOrMore', function (User $user, Project $project) {
+            $user->getAuthorityId($project) >= UserAuthority::PROJECT_VIEWER;
+        });
     }
 }
