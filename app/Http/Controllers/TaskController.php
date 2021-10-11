@@ -71,7 +71,7 @@ class TaskController extends Controller
 
     public function show(Project $project, Task $task)
     {
-        $this->authorize('view', $task);
+        $this->authorize('view', [Task::class, $project]);
 
         $task_kinds = TaskKind::all();
         $task_statuses = TaskStatus::all();
@@ -84,7 +84,7 @@ class TaskController extends Controller
 
     public function edit(Project $project, Task $task)
     {
-        $this->authorize('update', $task);
+        $this->authorize('update', [Task::class, $project]);
 
         $task_kinds = TaskKind::all();
         $task_statuses = TaskStatus::all();
@@ -97,7 +97,7 @@ class TaskController extends Controller
 
     public function update(TaskRequest $request, Project $project, Task $task)
     {
-        $this->authorize('update', $task);
+        $this->authorize('update', [Task::class, $project]);
 
         if ($task->update($request->all())) {
             $flash = ['success' => __('Task updated successfully.')];
@@ -112,7 +112,7 @@ class TaskController extends Controller
 
     public function destroy(Project $project, Task $task)
     {
-        $this->authorize('delete', $task);
+        $this->authorize('delete', [Task::class, $project]);
 
         if ($task->delete()) {
             $flash = ['success' => __('Task deleted successfully.')];

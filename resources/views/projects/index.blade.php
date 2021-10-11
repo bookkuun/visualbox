@@ -51,16 +51,30 @@
                         @foreach ($projects as $project)
                             <tr class="border-b border-gray-200 @if ($loop->even)bg-gray-50 @endif">
                                 <td class="py-3 px-6 text-left">
-                                    <a class="underline text-gray-600 hover:text-gray-900"
-                                        href="{{ route('projects.edit', ['project' => $project->id]) }}">{{ $project->title }}</a>
+
+                                    @can('projectAdmin', $project)
+
+                                        <a class="underline text-gray-600 hover:text-gray-900"
+                                            href="{{ route('projects.edit', ['project' => $project->id]) }}">
+                                        @endcan
+                                        {{ $project->title }}
+                                        @can('projectAdmin', $project)
+                                        </a>
+                                    @endcan
                                 </td>
                                 <td class="py-3 px-6 text-center">
                                     <a class="underline text-gray-600 hover:text-gray-900"
                                         href="{{ route('tasks.index', ['project' => $project->id]) }}">{{ __('Tasks') }}</a>
                                 </td>
                                 <td class="py-3 px-6 text-center">
-                                    <a class="underline text-gray-600 hover:text-gray-900"
-                                        href="{{ route('tasks.create', ['project' => $project->id]) }}">{{ __('Task Create') }}</a>
+                                    @can('projectEditorOrMore', $project)
+                                        <a class="underline text-gray-600 hover:text-gray-900"
+                                            href="{{ route('tasks.create', ['project' => $project->id]) }}">
+                                        @endcan
+                                        {{ __('Task Create') }}
+                                        @can('projectEditorOrMore', $project)
+                                        </a>
+                                    @endcan
                                 </td>
                                 <td class="py-3 px-6 text-center">
                                     <span>{{ $project->created_at->format('Y/m/d') }}</span>

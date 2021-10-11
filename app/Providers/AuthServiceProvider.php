@@ -29,15 +29,15 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('projectAdmin', function (User $user, Project $project) {
-            $user->getAuthorityId($project) === UserAuthority::PROJECT_ADMIN;
+            return $user->getAuthorityId($project) === UserAuthority::PROJECT_ADMIN;
         });
 
-        Gate::define('ProjectEditorOrMore', function (User $user, Project $project) {
-            $user->getAuthorityId($project) >= UserAuthority::PROJECT_EDITOR;
+        Gate::define('projectEditorOrMore', function (User $user, Project $project) {
+            return $user->getAuthorityId($project) >= UserAuthority::PROJECT_EDITOR;
         });
 
-        Gate::define('ProjectViewerOrMore', function (User $user, Project $project) {
-            $user->getAuthorityId($project) >= UserAuthority::PROJECT_VIEWER;
+        Gate::define('projectViewerOrMore', function (User $user, Project $project) {
+            return $user->getAuthorityId($project) >= UserAuthority::PROJECT_VIEWER;
         });
     }
 }

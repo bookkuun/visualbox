@@ -31,10 +31,10 @@ class TaskPolicy
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Task $task)
+    public function view(User $user, $project)
     {
         // 閲覧権限以上
-        return $user->getAuthorityId($task->project) >= UserAuthority::PROJECT_VIEWER;
+        return $user->getAuthorityId($project) >= UserAuthority::PROJECT_VIEWER;
     }
 
     /**
@@ -56,10 +56,10 @@ class TaskPolicy
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Task $task)
+    public function update(User $user, Project $project)
     {
         // 編集権限以上
-        return $user->getAuthorityId($task->project) >= UserAuthority::PROJECT_EDITOR;
+        return $user->getAuthorityId($project) >= UserAuthority::PROJECT_EDITOR;
     }
 
     /**
@@ -69,9 +69,9 @@ class TaskPolicy
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Task $task)
+    public function delete(User $user, Project $project)
     {
         // 管理者権限以上
-        return $user->getAuthorityId($task->project) >= UserAuthority::PROJECT_ADMIN;
+        return $user->getAuthorityId($project) >= UserAuthority::PROJECT_ADMIN;
     }
 }
