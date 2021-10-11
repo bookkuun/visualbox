@@ -57,6 +57,7 @@ class ProjectPolicy
      */
     public function update(User $user, project $project)
     {
+        // 管理者権限
         return $user->getAuthorityId($project) === UserAuthority::PROJECT_ADMIN;
     }
 
@@ -69,6 +70,7 @@ class ProjectPolicy
      */
     public function delete(User $user, project $project)
     {
+        // 管理者権限
         return $user->getAuthorityId($project) === UserAuthority::PROJECT_ADMIN;
     }
 }

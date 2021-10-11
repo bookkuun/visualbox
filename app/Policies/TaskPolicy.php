@@ -71,7 +71,7 @@ class TaskPolicy
      */
     public function delete(User $user, Task $task)
     {
-        // 編集権限以上
-        return $user->getAuthorityId($task->project) >= UserAuthority::PROJECT_EDITOR;
+        // 管理者権限以上
+        return $user->getAuthorityId($task->project) >= UserAuthority::PROJECT_ADMIN;
     }
 }
