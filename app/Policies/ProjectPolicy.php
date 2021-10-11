@@ -44,7 +44,7 @@ class ProjectPolicy
      */
     public function create(User $user)
     {
-        // 誰でもプロジェクトは作成することができる。
+        // 誰でもプロジェクトを作成することができる。
         return true;
     }
 

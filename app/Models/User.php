@@ -85,6 +85,6 @@ class User extends Authenticatable
             return null;
         }
 
-        return $record['user_authority_id'];
+        return $record->user_authority_id;
     }
 }
