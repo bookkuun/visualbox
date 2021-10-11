@@ -15,13 +15,10 @@ use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request, Project $project)
     {
+        $this->authorize('viewAny', [Task::class, $project]);
+
         $request->validate([
             'keyword' => 'max:255',
         ]);
@@ -44,6 +41,8 @@ class TaskController extends Controller
 
     public function create(Project $project)
     {
+        $this->authorize('create', [Task::class, $project]);
+
         $task_kinds = TaskKind::all();
         $task_statuses = TaskStatus::all();
         $task_categories = TaskCategory::all();
@@ -54,6 +53,8 @@ class TaskController extends Controller
 
     public function store(TaskRequest $request, Project $project)
     {
+        $this->authorize('create', [Task::class, $project]);
+
         $owner = Auth::user();
         $task = Task::createTask($owner, $project, $request);
 
@@ -70,6 +71,8 @@ class TaskController extends Controller
 
     public function show(Project $project, Task $task)
     {
+        $this->authorize('view', $task);
+
         $task_kinds = TaskKind::all();
         $task_statuses = TaskStatus::all();
         $task_categories = TaskCategory::all();
@@ -81,6 +84,8 @@ class TaskController extends Controller
 
     public function edit(Project $project, Task $task)
     {
+        $this->authorize('update', $task);
+
         $task_kinds = TaskKind::all();
         $task_statuses = TaskStatus::all();
         $task_categories = TaskCategory::all();
@@ -92,6 +97,8 @@ class TaskController extends Controller
 
     public function update(TaskRequest $request, Project $project, Task $task)
     {
+        $this->authorize('update', $task);
+
         if ($task->update($request->all())) {
             $flash = ['success' => __('Task updated successfully.')];
         } else {
@@ -105,6 +112,8 @@ class TaskController extends Controller
 
     public function destroy(Project $project, Task $task)
     {
+        $this->authorize('delete', $task);
+
         if ($task->delete()) {
             $flash = ['success' => __('Task deleted successfully.')];
         } else {
