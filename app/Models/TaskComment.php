@@ -23,25 +23,4 @@ class TaskComment extends Model
     {
         return $this->belongsTo(User::class)->withDefault();
     }
-
-    /**
-     * コメントを作成する
-     */
-    public static function createComment($owner, $task, $comment)
-    {
-        DB::beginTransaction();
-        try {
-            $comment = TaskComment::create([
-                'task_id' => $task->id,
-                'comment' => $comment,
-                'user_id' => $owner->id
-            ]);
-
-            DB::commit();
-        } catch (\Throwable $error) {
-            DB::rollBack();
-            return null;
-        }
-        return $comment;
-    }
 }

@@ -53,7 +53,6 @@
                                 <td class="py-3 px-6 text-left">
 
                                     @can('projectAdmin', $project)
-
                                         <a class="underline text-gray-600 hover:text-gray-900"
                                             href="{{ route('projects.edit', ['project' => $project->id]) }}">
                                         @endcan

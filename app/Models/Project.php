@@ -59,7 +59,7 @@ class Project extends Model
             ]);
 
             foreach ($members as $member) {
-                UserJoinProject::createJoinGroup($member, $project);
+                UserJoinProject::joinProject($member, $project);
             }
 
             DB::commit();
@@ -91,8 +91,7 @@ class Project extends Model
                             'user_authority_id' => (int)$member['authority'],
                         ]);
                 } else {
-
-                    UserJoinProject::createJoinGroup($member, $this);
+                    UserJoinProject::joinProject($member, $this);
                 }
             }
 
