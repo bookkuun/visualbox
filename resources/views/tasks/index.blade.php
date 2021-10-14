@@ -5,7 +5,7 @@
     </x-slot>
 
     <x-slot name="header">
-        <h2>{{ $project->title }}</h2>
+        <h2>プロジェクト名：{{ $project->title }}</h2>
     </x-slot>
 
     {{-- メッセージ --}}
@@ -47,6 +47,7 @@
                         <tr class="bg-gray-200 text-gray-600 leading-normal">
                             <th class="py-3 px-6 text-left">タスク種別</th>
                             <th class="py-3 px-6 text-left">タスク名</th>
+                            <th class="py-3 px-6 text-left">状況</th>
                             <th class="py-3 px-6 text-left">担当者</th>
                             <th class="py-3 px-6 text-center">締め切り</th>
                             <th class="py-3 px-6 text-center">作成日</th>
@@ -63,6 +64,9 @@
                                 <td class="py-3 px-6 text-left">
                                     <a class="underline font-medium text-gray-600 hover:text-gray-900"
                                         href="{{ route('tasks.show', ['project' => $project->id, 'task' => $task->id]) }}">{{ $task->name }}</a>
+                                </td>
+                                <td class="py-3 px-6 text-left">
+                                    {{ $task->task_status->name }}
                                 </td>
                                 <td class="py-3 px-6 text-left">
                                     @if (isset($task->assigner))

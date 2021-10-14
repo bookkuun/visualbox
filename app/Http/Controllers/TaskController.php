@@ -46,7 +46,7 @@ class TaskController extends Controller
             $tasks = $tasks->where('name', 'like', '%' . $keyword . '%');
         }
 
-        $tasks = $tasks->latest()->paginate();
+        $tasks = $tasks->orderBy('task_status_id', 'asc')->latest()->paginate();
 
         return view('tasks.index', compact('project', 'tasks', 'keyword'));
     }
