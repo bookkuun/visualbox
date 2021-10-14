@@ -51,11 +51,11 @@ class ProjectTest extends TestCase
         $project_viewer = UserAuthority::factory()->create();
         $project_editor = UserAuthority::factory()->create([
             'name' => '編集',
-            'display_order' => 2,
+            'display_order' => UserAuthority::PROJECT_EDITOR,
         ]);
         $project_admin = UserAuthority::factory()->create([
             'name' => '管理者',
-            'display_order' => 3,
+            'display_order' => UserAuthority::PROJECT_ADMIN,
         ]);
 
         $members = [[
@@ -88,28 +88,28 @@ class ProjectTest extends TestCase
         $project_viewer = UserAuthority::factory()->create();
         $project_editor = UserAuthority::factory()->create([
             'name' => '編集',
-            'display_order' => 2,
+            'display_order' => UserAuthority::PROJECT_EDITOR,
         ]);
         $project_admin = UserAuthority::factory()->create([
             'name' => '管理者',
-            'display_order' => 3,
+            'display_order' => UserAuthority::PROJECT_ADMIN,
         ]);
 
         $title = 'プロジェクトA';
 
         $members = [
             [
-                "id" => $admin_user->id,
-                "authority" => $project_admin->id,
+                "id" => $viewer_user->id,
+                "authority" => $project_viewer->id,
             ],
             [
                 "id" => $editor_user->id,
                 "authority" => $project_editor->id,
             ],
             [
-                "id" => $viewer_user->id,
-                "authority" => $project_viewer->id,
-            ]
+                "id" => $admin_user->id,
+                "authority" => $project_admin->id,
+            ],
         ];
 
         Project::createProjectWithMembers($admin_user, $title, $members);
@@ -120,16 +120,16 @@ class ProjectTest extends TestCase
                 "user_id" => $admin_user->id,
             ])
             ->assertDatabaseHas('user_join_projects', [
-                "id" => 1,
-                "user_authority_id" => UserAuthority::PROJECT_ADMIN,
+                "id" => $viewer_user->id,
+                "user_authority_id" => UserAuthority::PROJECT_VIEWER,
             ])
             ->assertDatabaseHas('user_join_projects', [
-                "id" => 2,
+                "id" => $editor_user->id,
                 "user_authority_id" => UserAuthority::PROJECT_EDITOR,
             ])
             ->assertDatabaseHas('user_join_projects', [
-                "id" => 3,
-                "user_authority_id" => UserAuthority::PROJECT_VIEWER,
+                "id" => $admin_user->id,
+                "user_authority_id" => UserAuthority::PROJECT_ADMIN,
             ]);
     }
 }
