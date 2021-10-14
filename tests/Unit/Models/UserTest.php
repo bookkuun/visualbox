@@ -18,9 +18,12 @@ class UserTest extends TestCase
     /** @test projects */
     public function プロジェクトのリレーションを返す()
     {
+        $count = 5;
         $user = User::factory()->create();
+        Project::factory($count)->create(['user_id' => $user->id]);
 
         $this->assertInstanceOf(Collection::class, $user->projects);
+        $this->assertSame($count, count($user->projects));
     }
 
     /** @test joinProjects */
@@ -28,58 +31,99 @@ class UserTest extends TestCase
     {
         $user = User::factory()->create();
 
+        $project1 = Project::factory()->create(['user_id' => $user]);
+        $project2 = Project::factory()->create(['user_id' => $user]);
+
+        // プロジェクトの権限
+        $project_viewer = UserAuthority::factory()->create();
+        $project_editor = UserAuthority::factory()->create([
+            'name' => '編集',
+            'display_order' => UserAuthority::PROJECT_EDITOR,
+        ]);
+        $project_admin = UserAuthority::factory()->create([
+            'name' => '管理者',
+            'display_order' => UserAuthority::PROJECT_ADMIN,
+        ]);
+
+        $member = [
+            "id" => $user->id,
+            "authority" => $project_viewer->id
+        ];
+
+        UserJoinProject::joinProject($member, $project1);
+        UserJoinProject::joinProject($member, $project2);
+
         $this->assertInstanceOf(Collection::class, $user->joinProjects);
+        $this->assertSame(2, count($user->joinProjects));
     }
 
     /** @test tasks */
     public function タスクのリレーションを返す()
     {
+        $count = 5;
         $user = User::factory()->create();
+        Task::factory($count)->create(['created_user_id' => $user->id]);
 
         $this->assertInstanceOf(Collection::class, $user->tasks);
+        $this->assertSame($count, count($user->tasks));
     }
 
     /** @test myTasks */
     public function 担当タスクのリレーションを返す()
     {
+        $count = 5;
+
         $user = User::factory()->create();
 
+        Task::factory($count)->create(['assigner_id' => $user->id]);
+
         $this->assertInstanceOf(Collection::class, $user->myTasks);
+        $this->assertSame($count, count($user->myTasks));
     }
 
     /** @test getAuthorityId */
     public function プロジェクトでの権限を取得できる()
     {
-        $user1 = User::factory()->create();
-        $user2 = User::factory()->create();
+        $viewer_user = User::factory()->create();
+        $editor_user = User::factory()->create();
+        $admin_user = User::factory()->create();
 
+        // プロジェクトでの権限
         $project_viewer = UserAuthority::factory()->create();
         $project_editor = UserAuthority::factory()->create([
             'name' => '編集',
-            'display_order' => 2,
+            'display_order' => UserAuthority::PROJECT_EDITOR,
         ]);
         $project_admin = UserAuthority::factory()->create([
             'name' => '管理者',
-            'display_order' => 3,
+            'display_order' => UserAuthority::PROJECT_ADMIN,
         ]);
 
-        $title = 'おはようございます。';
+        $title = 'プロジェクトA';
 
         $members = [
             [
-                "id" => $user1->id,
-                "authority" => $project_admin->id,
+                "id" => $viewer_user->id,
+                "authority" => $project_viewer->id,
             ],
             [
-                "id" => $user2->id,
+                "id" => $editor_user->id,
                 "authority" => $project_editor->id,
-            ]
+            ],
+            [
+                "id" => $admin_user->id,
+                "authority" => $project_admin->id,
+            ],
         ];
 
-        $project = Project::createProjectWithMembers($user1, $title, $members);
+        $project = Project::createProjectWithMembers($admin_user, $title, $members);
 
-        $user1_authority_id = $user1->getAuthorityId($project);
+        $authority1_id = $viewer_user->getAuthorityId($project);
+        $authority2_id = $editor_user->getAuthorityId($project);
+        $authority3_id = $admin_user->getAuthorityId($project);
 
-        $this->assertSame(3, (int)$user1_authority_id);
+        $this->assertSame(UserAuthority::PROJECT_VIEWER, $authority1_id);
+        $this->assertSame(UserAuthority::PROJECT_EDITOR, $authority2_id);
+        $this->assertSame(UserAuthority::PROJECT_ADMIN, $authority3_id);
     }
 }

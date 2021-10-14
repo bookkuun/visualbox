@@ -81,6 +81,6 @@ class User extends Authenticatable
     {
         $record = UserJoinProject::where('user_id', '=', $this->id)->where('project_id', '=', $project->id)->first();
 
-        return $record ?  $record->user_authority_id : null;
+        return $record ? (int) $record->user_authority_id : null;
     }
 }
