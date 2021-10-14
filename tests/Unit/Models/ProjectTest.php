@@ -28,11 +28,12 @@ class ProjectTest extends TestCase
     }
 
     /** @test tasks */
-    public function 複数のタスクのリレーションを返す()
+    public function タスクのリレーションを返す()
     {
         $count = 5;
         $project = Project::factory()->create();
-        $task = Task::factory($count)->create(['project_id' => $project->id]);
+
+        Task::factory($count)->create(['project_id' => $project->id]);
 
         $this->assertInstanceOf(Collection::class, $project->tasks);
         $this->assertSame($count, count($project->tasks));
