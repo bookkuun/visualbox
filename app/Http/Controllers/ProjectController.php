@@ -25,9 +25,8 @@ class ProjectController extends Controller
         $not_processed_tasks  = $user->myTasks->where('task_status_id', TaskStatus::NOT_PROCESSED)->sortBy('due_date');
         $processing_tasks  = $user->myTasks->where('task_status_id', TaskStatus::PROCESSING)->sortBy('due_date');
         $processed_tasks  = $user->myTasks->where('task_status_id', TaskStatus::PROCESSED)->sortBy('due_date');
-        $closed_tasks  = $user->myTasks->where('task_status_id', TaskStatus::CLOSED)->sortBy('due_date');
 
-        return view('dashboard', compact('not_processed_tasks', 'processing_tasks', 'processed_tasks', 'closed_tasks'));
+        return view('dashboard', compact('not_processed_tasks', 'processing_tasks', 'processed_tasks'));
     }
 
     public function index(Request $request)
