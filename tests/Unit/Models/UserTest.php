@@ -31,7 +31,30 @@ class UserTest extends TestCase
     {
         $user = User::factory()->create();
 
+        $project1 = Project::factory()->create(['user_id' => $user]);
+        $project2 = Project::factory()->create(['user_id' => $user]);
+
+        // プロジェクトの権限
+        $project_viewer = UserAuthority::factory()->create();
+        $project_editor = UserAuthority::factory()->create([
+            'name' => '編集',
+            'display_order' => UserAuthority::PROJECT_EDITOR,
+        ]);
+        $project_admin = UserAuthority::factory()->create([
+            'name' => '管理者',
+            'display_order' => UserAuthority::PROJECT_ADMIN,
+        ]);
+
+        $member = [
+            "id" => $user->id,
+            "authority" => $project_viewer->id
+        ];
+
+        UserJoinProject::joinProject($member, $project1);
+        UserJoinProject::joinProject($member, $project2);
+
         $this->assertInstanceOf(Collection::class, $user->joinProjects);
+        $this->assertSame(2, count($user->joinProjects));
     }
 
     /** @test tasks */

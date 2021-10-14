@@ -48,7 +48,7 @@ class ProjectTest extends TestCase
 
         $project = Project::factory()->create(['user_id' => $user1]);
 
-        //　プロジェクトの権限
+        // プロジェクトの権限
         $project_viewer = UserAuthority::factory()->create();
         $project_editor = UserAuthority::factory()->create([
             'name' => '編集',
