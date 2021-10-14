@@ -49,7 +49,7 @@ class Task extends Model
      */
     public function project()
     {
-        return $this->belongsTo(Project::class, 'created_user_id')->withDefault();
+        return $this->belongsTo(Project::class, 'project_id')->withDefault();
     }
 
     /**

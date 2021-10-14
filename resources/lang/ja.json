@@ -146,7 +146,7 @@
     "Customize": "Customize",
     "Cyprus": "Cyprus",
     "Czech Republic": "Czechia",
-    "Dashboard": "ダッシュボード",
+    "Dashboard": "私のタスク",
     "December": "December",
     "Decrease": "Decrease",
     "Delete": "削除",
@@ -648,5 +648,7 @@
     "Member": "メンバー",
     "User Authority": "権限",
     "Comment created successfully.": "コメントの作成に成功しました。",
-    "Comment deleted successfully.": "コメントの削除に成功しました。"
+    "Comment deleted successfully.": "コメントの削除に成功しました。",
+    "Project List": "プロジェクト一覧",
+    "Task Progress": "タスクの進捗"
 }

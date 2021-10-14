@@ -43,6 +43,7 @@
                             <th class="py-3 px-6 text-left">プロジェクト名</th>
                             <th class="py-3 px-6 text-center"></th>
                             <th class="py-3 px-6 text-center"></th>
+                            <th class="py-3 px-6 text-center"></th>
                             <th class="py-3 px-6 text-center">作成日</th>
                             <th class="py-3 px-6 text-center">更新日</th>
                         </tr>
@@ -60,6 +61,12 @@
                                         @can('projectAdmin', $project)
                                         </a>
                                     @endcan
+                                </td>
+                                <td class="py-3 px-6 text-center">
+                                    <a class="underline text-gray-600 hover:text-gray-900"
+                                        href="{{ route('tasks.progress', ['project' => $project->id]) }}">
+                                        {{ __('Task Progress') }}
+                                    </a>
                                 </td>
                                 <td class="py-3 px-6 text-center">
                                     <a class="underline text-gray-600 hover:text-gray-900"

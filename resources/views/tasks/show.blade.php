@@ -5,7 +5,7 @@
     </x-slot>
 
     <x-slot name="header">
-        <h2>{{ $project->title }}</h2>
+        <h2>プロジェクト名：{{ $project->title }}</h2>
     </x-slot>
 
     {{-- メッセージ --}}
