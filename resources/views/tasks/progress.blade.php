@@ -24,7 +24,7 @@
                                     </div>
                                     <div class="p-1">
                                         <div>種類：{{ $task->task_kind->name }}</div>
-                                        <div>担当者：{{ $task->assigner->name }}</div>
+                                        <div>担当者：{{ $task->assigner->name ?? '' }}</div>
                                         <div>
                                             カテゴリ：{{ $task->task_category ? $task->task_category->name : '' }}
                                         </div>
@@ -53,7 +53,7 @@
                                     </div>
                                     <div class="p-1">
                                         <div>種類：{{ $task->task_kind->name }}</div>
-                                        <div>担当者：{{ $task->assigner->name }}</div>
+                                        <div>担当者：{{ $task->assigner->name ?? '' }}</div>
                                         <div>
                                             カテゴリ：{{ $task->task_category ? $task->task_category->name : '' }}
                                         </div>
@@ -82,7 +82,7 @@
                                     </div>
                                     <div class="p-1">
                                         <div>種類：{{ $task->task_kind->name }}</div>
-                                        <div>担当者：{{ $task->assigner->name }}</div>
+                                        <div>担当者：{{ $task->assigner->name ?? '' }}</div>
                                         <div>
                                             カテゴリ：{{ $task->task_category ? $task->task_category->name : '' }}
                                         </div>
@@ -111,7 +111,7 @@
                                     </div>
                                     <div class="p-1">
                                         <div>種類：{{ $task->task_kind->name }}</div>
-                                        <div>担当者：{{ $task->assigner->name }}</div>
+                                        <div>担当者：{{ $task->assigner->name ?? '' }}</div>
                                         <div>
                                             カテゴリ：{{ $task->task_category ? $task->task_category->name : '' }}
                                         </div>
