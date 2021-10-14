@@ -19,5 +19,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('projects', ProjectController::class);
     Route::delete('projects/{project}/users/{user}', [UserJoinProjectController::class, 'destroy']);
     Route::resource('projects/{project}/tasks', TaskController::class);
+    Route::get('projects/{project}/progress', [TaskController::class, 'progress'])->name('tasks.progress');
     Route::resource('projects/{project}/tasks/{task}/comments', TaskCommentController::class);
 });

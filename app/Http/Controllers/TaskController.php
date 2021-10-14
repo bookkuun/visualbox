@@ -15,6 +15,18 @@ use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
+    public function progress(Request $request, Project $project)
+    {
+        $this->authorize('viewAny', [Task::class, $project]);
+
+        $not_processed_tasks  = $project->tasks->where('task_status_id', TaskStatus::NOT_PROCESSED)->sortBy('due_date');
+        $processing_tasks  = $project->tasks->where('task_status_id', TaskStatus::PROCESSING)->sortBy('due_date');
+        $processed_tasks  = $project->tasks->where('task_status_id', TaskStatus::PROCESSED)->sortBy('due_date');
+        $closed_tasks  = $project->tasks->where('task_status_id', TaskStatus::CLOSED)->sortBy('due_date');
+
+        return view('tasks.progress', compact('project', 'not_processed_tasks', 'processing_tasks', 'processed_tasks', 'closed_tasks'));
+    }
+
     public function index(Request $request, Project $project)
     {
         $this->authorize('viewAny', [Task::class, $project]);
