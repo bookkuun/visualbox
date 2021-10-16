@@ -1,16 +1,13 @@
 #!/usr/bin/env bash
 
 # 環境変数ファイルの作成
-cp .env.example .env
+cp .env.production .env
 
 # パッケージインストール
 composer install
 
-# LaravelのAPP_KEY生成
-php artisan key:generate
-
 # マイグレーション
-# php artisan migrate:fresh --seed
+php artisan migrate:fresh --seed
 
 # セットアップ
 npm install
