@@ -7,7 +7,7 @@ cp .env.production .env
 composer install
 
 # マイグレーション
-php artisan migrate:fresh --seed
+php artisan migrate --seed
 
 # セットアップ
 npm install
