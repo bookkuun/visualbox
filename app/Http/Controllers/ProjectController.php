@@ -59,7 +59,7 @@ class ProjectController extends Controller
         if ($user->id <= 3) {
             $users = User::where('id', '<=', 3)->get();
         } elseif ($user->id <= 6) {
-            $users = User::where('id', '<=', 6)->get();
+            $users = User::whereBetween('id', [4, 6])->get();
         } else {
             $users = User::where('id', '>=', 7)->get();
         }

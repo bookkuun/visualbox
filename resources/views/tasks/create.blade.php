@@ -36,7 +36,7 @@
                             class="{{ $errors->has('task_kind_id') ? 'text-red-600' : '' }}" />
                         <x-select :options="$task_kinds" id="task_kind_id"
                             class="block mt-1 w-full {{ $errors->has('task_kind_id') ? 'border-red-600' : '' }}"
-                            name="task_kind_id" :value="old('task_kind_id')" autofocus />
+                            name="task_kind_id" :value="old('task_kind_id')" autofocus required />
                     </div>
 
                     <div class="w-full pl-3">
@@ -44,7 +44,7 @@
                             class="{{ $errors->has('name') ? 'text-red-600' : '' }}" />
                         <x-input id="name"
                             class="block mt-1 w-full {{ $errors->has('name') ? 'border-red-600' : '' }}" type="text"
-                            name="name" :value="old('name')" placeholder="{{ __('Task Name') }}" autofocus />
+                            name="name" :value="old('name')" placeholder="{{ __('Task Name') }}" autofocus required />
                     </div>
                 </div>
 

@@ -5,6 +5,11 @@ use App\Http\Controllers\TaskCommentController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserJoinProjectController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
+
+if (config('app.env') === 'production') {
+    URL::forceScheme('https');
+}
 
 Route::middleware('guest')->group(function () {
     Route::get('/', function () {

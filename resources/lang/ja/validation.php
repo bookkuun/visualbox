@@ -133,6 +133,13 @@ return [
         '属性名' => [
             'ルール名' => 'カスタムメッセージ',
         ],
+        'users.*.id' => [
+            'required' => 'メンバーが入力されていません。',
+            'distinct' => 'メンバーが重複しています。',
+        ],
+        'users.*.authority' => [
+            'required' => 'メンバーの権限が入力されていません。',
+        ],
     ],
 
     /*
@@ -149,7 +156,20 @@ return [
     'attributes' => [
         'keyword' => 'キーワード',
         'title' => 'プロジェクト名',
+        'name' => '名前',
         'password' => 'パスワード',
+        'kind' => '種別',
+        'status' => '状態',
+        'assigner' => '担当者',
+        'category' => 'カテゴリー',
+        'due_ate' => '期限日',
+        'comment' => 'コメント',
+        'task_kind_id' => '種別',
+        'detail' => '課題の詳細',
+        'task_file' => '添付画像',
+        'task_status_id' => '状態',
+        'assigner_id' => '担当者',
+        'task_category_id' => 'カテゴリー',
     ],
 
 ];

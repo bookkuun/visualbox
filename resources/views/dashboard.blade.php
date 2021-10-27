@@ -44,7 +44,7 @@
             <div class="flex-1 bg-white mx-2">
                 <div class="bg-gray-100 flex flex-row items-center border-b-2">
                     <span class="bg-blue-200 rounded-full h-3 w-3 flex items-center justify-center mr-1"></span>
-                    <h3>処理中</h3>
+                    <h3>対応中</h3>
                 </div>
                 <ul>
                     @foreach ($processing_tasks as $task)
@@ -74,7 +74,7 @@
             <div class="flex-1 bg-white mx-2">
                 <div class="bg-gray-100 flex flex-row items-center border-b-2">
                     <span class="bg-green-200 rounded-full h-3 w-3 flex items-center justify-center mr-1"></span>
-                    <h3>処理済み</h3>
+                    <h3>対応済み</h3>
                 </div>
                 <ul>
                     @foreach ($processed_tasks as $task)
