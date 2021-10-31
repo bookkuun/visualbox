@@ -1,6 +1,6 @@
 # VisualBox
 
-写真
+[![Image from Gyazo](https://i.gyazo.com/5cb35cbfec5b3012f6d385f7b9cbf755.png)](https://gyazo.com/5cb35cbfec5b3012f6d385f7b9cbf755)
 
 ## 制作背景
 
