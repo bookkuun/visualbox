@@ -68,4 +68,4 @@ URL:https://drive.google.com/file/d/1Tqdri-Et1m5uYzX-Xn6voV-PXiwNfE45/view?usp=s
 
 ## インフラ構成図
 
-[![Image from Gyazo](https://i.gyazo.com/66db460cc11bff75eb4c1b6433e53e68.png)](https://gyazo.com/66db460cc11bff75eb4c1b6433e53e68)
+[![Image from Gyazo](https://i.gyazo.com/580e84a7d6dad14ad896af324e51d162.png)](https://gyazo.com/580e84a7d6dad14ad896af324e51d162)
